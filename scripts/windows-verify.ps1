@@ -26,7 +26,7 @@ function Resolve-PnpmRunner {
         }
     }
 
-    throw "Node.js 22.19.0 이상과 함께 제공되는 Corepack 또는 pnpm 11.1.2가 필요합니다."
+    throw "Corepack or pnpm 11.1.2 is required with Node.js 22.19.0 or newer."
 }
 
 function Invoke-Pnpm {
@@ -36,7 +36,7 @@ function Invoke-Pnpm {
     $commandArguments = @($script:PnpmRunner.Prefix) + $Arguments
     & $command @commandArguments
     if ($LASTEXITCODE -ne 0) {
-        throw "pnpm 명령이 실패했습니다: $($Arguments -join ' ')"
+        throw "pnpm command failed: $($Arguments -join ' ')"
     }
 }
 
@@ -45,7 +45,7 @@ try {
     $node = Get-Command node.exe -ErrorAction Stop
     $nodeVersionText = (& $node.Source -p "process.versions.node").Trim()
     if ([Version]$nodeVersionText -lt [Version]"22.19.0") {
-        throw "Node.js 22.19.0 이상이 필요합니다. 현재 버전: $nodeVersionText"
+        throw "Node.js 22.19.0 or newer is required. Current: $nodeVersionText"
     }
 
     $script:PnpmRunner = Resolve-PnpmRunner
@@ -54,12 +54,12 @@ try {
     $pnpmVersionArguments = @($pnpmArguments) + @("--version")
     $pnpmVersion = (& $pnpmCommand @pnpmVersionArguments | Select-Object -Last 1).Trim()
     if ($pnpmVersion -ne "11.1.2") {
-        throw "pnpm 11.1.2가 필요합니다. 현재 버전: $pnpmVersion"
+        throw "pnpm 11.1.2 is required. Current: $pnpmVersion"
     }
 
     if (-not (Test-Path ".env.local")) {
         Copy-Item ".env.example" ".env.local"
-        Write-Host "fixture 전용 .env.local을 생성했습니다."
+        Write-Host "Created a fixture-only .env.local file."
     }
 
     $env:SUPRO_DATA_MODE = "fixture"
@@ -69,8 +69,8 @@ try {
     Invoke-Pnpm -Arguments @("check")
 
     Write-Host "SUPRO_WINDOWS_READY node=$nodeVersionText pnpm=$pnpmVersion fixture=true"
-    Write-Host "실행: corepack pnpm dev"
-    Write-Host "브라우저: http://localhost:3000"
+    Write-Host "Run: corepack pnpm dev"
+    Write-Host "Open: http://localhost:3000"
 }
 finally {
     if ($null -eq $previousMode) {
