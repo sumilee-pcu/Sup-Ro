@@ -20,12 +20,15 @@ pnpm dev
 Windows PowerShell:
 
 ```powershell
-Copy-Item .env.example .env.local
-pnpm install --frozen-lockfile
-pnpm dev
+git clone https://github.com/sumilee-pcu/Sup-Ro.git
+Set-Location Sup-Ro
+powershell -ExecutionPolicy Bypass -File .\scripts\windows-verify.ps1
+corepack pnpm dev
 ```
 
 기본값은 외부 네트워크나 API 키가 필요 없는 `fixture` 모드다. 프로덕션 빌드는 `pnpm build` 후 `pnpm start`로 실행한다.
+
+`windows-verify.ps1`은 기존 `.env.local`을 덮어쓰지 않는다. 파일이 없을 때만 키가 비어 있는 fixture 설정을 복사하고, `pnpm check`와 빌드된 서버의 HTTP 스모크를 실행한다. 완료 후 Chrome 또는 Edge에서 `http://localhost:3000`을 연다.
 
 ## 환경 변수
 

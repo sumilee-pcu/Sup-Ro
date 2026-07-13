@@ -31,17 +31,22 @@ pnpm dev
 Windows PowerShell:
 
 ```powershell
-pnpm install --frozen-lockfile
-pnpm dev
+git clone https://github.com/sumilee-pcu/Sup-Ro.git
+Set-Location Sup-Ro
+powershell -ExecutionPolicy Bypass -File .\scripts\windows-verify.ps1
+corepack pnpm dev
 ```
 
 브라우저에서 `http://localhost:3000`을 열면 대표 중2 과학 생태계 계획이 fixture 모드로 표시됩니다.
+
+Windows 검증 스크립트는 Node·pnpm 버전, 의존성 잠금, 포맷, lint, 타입, 21개 테스트, 12개 평가 시나리오, 프로덕션 빌드와 실제 HTTP 200 응답을 한 번에 확인합니다. API 키가 없어도 fixture 데모는 완주됩니다.
 
 ## 검증
 
 ```bash
 pnpm test
 pnpm smoke:fixture
+pnpm smoke:http
 pnpm evaluate
 pnpm build
 pnpm validate:openspec
@@ -53,7 +58,7 @@ pnpm validate:openspec
 
 `.env.example`을 `.env.local`로 복사할 수 있습니다. 기본 `SUPRO_DATA_MODE=fixture`에서는 키가 전혀 필요하지 않습니다. `NEXT_PUBLIC_` 접두사가 붙은 Kakao JavaScript 키만 브라우저에 포함될 수 있으며 REST·모델 키는 서버 전용입니다.
 
-라이브 연동 활성화, 상표·도메인 확정, 공개 라이선스 선택, Windows 11 실기기 검증, GitHub 원격 생성과 push는 소유자 승인 게이트로 남겨 두었습니다.
+Kakao localhost 지도·장소 연결은 검증했으며 실제 키는 GitHub에 포함하지 않습니다. 공개 라이선스 선택, 지정 Windows 11 물리 장비 검증, 2026-07-21 경로 API 최종 반영은 후속 게이트입니다. GitHub Actions는 Ubuntu와 Windows Server에서 동일한 품질 게이트를 실행합니다.
 
 ## 문서
 

@@ -24,6 +24,7 @@
 | `pnpm typecheck`             | TypeScript 오류 0건                        |
 | `pnpm test`                  | 9개 파일, 21개 자동 테스트 PASS            |
 | `pnpm smoke:fixture`         | `SUPRO_FIXTURE_SMOKE_PASS`                 |
+| `pnpm smoke:http`            | 빌드 서버 HTTP 200과 `FIXTURE v1` 표식     |
 | `pnpm smoke:kakao`           | 로컬 비밀키로 SDK·Local 각 1회 라이브 검증 |
 | `pnpm evaluate`              | `SUPRO_EVALUATION_PASS 12/12`              |
 | `pnpm build`                 | `/` 정적 페이지와 3개 API 라우트 빌드      |
@@ -45,9 +46,10 @@
 - 전체 품질 게이트 `pnpm check`: PASS
 - 첫 구현 커밋: `2e5ba4f` (`feat: build fixture-first field trip coordinator`)
 - staged-tree 공개 검사: 86개 파일 PASS
-- Git remote: 승인된 `origin` 1개, 아직 push하지 않음
+- Git remote: 승인된 `origin` 1개, 2026-07-14 초기 게시 승인 완료
 - 영문 브랜드·패키지·환경변수·fixture URI를 `Sup-Ro AI`/`sup-ro`/`SUPRO`로 일괄 변경 후 동일 품질 게이트를 재실행했다.
 - 로컬 Git 작성자 이메일은 공개 개인정보 노출을 피하기 위해 저장소 전용 noreply 값을 사용했다. GitHub 계정 귀속이 필요하면 게시 전에 커밋 작성자를 사용자의 확인된 noreply 주소로 재작성한다.
+- GitHub Actions는 `ubuntu-latest`와 `windows-latest`에서 같은 테스트·빌드·HTTP 스모크를 실행하도록 구성했다. 이는 자동 Windows 호환성 증거이며 G14 물리 장비 검증을 대체하지 않는다.
 
 ## Kakao Maps·Local 라이브 설정
 
@@ -66,4 +68,4 @@
 - 실제 장소 운영시간·가격·접근성·차량 동선
 - Windows 11 물리 장비의 설치·브라우저·성능
 - 학교 공식 양식의 출력 정합성과 공개 라이선스 범위
-- GitHub Actions의 원격 실행 결과
+- 지정 물리 장비의 Windows 11·Chrome/Edge 실행 결과

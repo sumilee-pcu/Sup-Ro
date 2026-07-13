@@ -27,11 +27,12 @@
     "test:integration": "vitest run tests/integration",
     "test:browser": "vitest run tests/browser",
     "smoke:fixture": "node --import tsx scripts/fixture-smoke.ts",
+    "smoke:http": "node --import tsx scripts/http-smoke.ts",
     "smoke:kakao": "node --env-file=.env.local --import tsx scripts/kakao-live-smoke.ts",
     "evaluate": "node --import tsx scripts/evaluate.ts",
     "preflight:publication": "node scripts/preflight-publication.mjs",
     "validate:openspec": "openspec validate build-ai-field-trip-coordinator-mvp --strict",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm smoke:fixture && pnpm evaluate && pnpm build && pnpm validate:openspec"
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm smoke:fixture && pnpm evaluate && pnpm build && pnpm smoke:http && pnpm validate:openspec"
   },
   "dependencies": {
     "next": "16.2.6",
