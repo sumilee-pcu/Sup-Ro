@@ -47,7 +47,7 @@
 
 ## 5. Live map, place, and route adapters
 
-- [ ] 5.1 Register the selected Kakao Maps developer application and record current quota, price, attribution, cache, and domain restrictions
+- [x] 5.1 Register the selected Kakao Maps developer application and record current quota, price, attribution, cache, and domain restrictions
 - [x] 5.2 Implement Kakao map display without exposing server-only credentials
 - [x] 5.3 Implement the Kakao Local place-search adapter and normalize results into internal PlaceCandidate records
 - [ ] 5.4 Implement the selected route adapter for supported transit, walking, and bicycle routes and normalize RouteLeg evidence

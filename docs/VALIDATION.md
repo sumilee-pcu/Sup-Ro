@@ -17,17 +17,18 @@
 
 ## 자동 검증 명령
 
-| 명령                         | 기대 증거                               |
-| ---------------------------- | --------------------------------------- |
-| `pnpm format:check`          | 변경 없이 포맷 확인                     |
-| `pnpm lint`                  | 오류·경고 0건                           |
-| `pnpm typecheck`             | TypeScript 오류 0건                     |
-| `pnpm test`                  | 9개 파일, 21개 자동 테스트 PASS         |
-| `pnpm smoke:fixture`         | `SUPRO_FIXTURE_SMOKE_PASS`              |
-| `pnpm evaluate`              | `SUPRO_EVALUATION_PASS 12/12`           |
-| `pnpm build`                 | `/` 정적 페이지와 3개 API 라우트 빌드   |
-| `pnpm validate:openspec`     | strict 1/1 PASS                         |
-| `pnpm preflight:publication` | staged 공개검사 PASS, 승인된 origin 1개 |
+| 명령                         | 기대 증거                                  |
+| ---------------------------- | ------------------------------------------ |
+| `pnpm format:check`          | 변경 없이 포맷 확인                        |
+| `pnpm lint`                  | 오류·경고 0건                              |
+| `pnpm typecheck`             | TypeScript 오류 0건                        |
+| `pnpm test`                  | 9개 파일, 21개 자동 테스트 PASS            |
+| `pnpm smoke:fixture`         | `SUPRO_FIXTURE_SMOKE_PASS`                 |
+| `pnpm smoke:kakao`           | 로컬 비밀키로 SDK·Local 각 1회 라이브 검증 |
+| `pnpm evaluate`              | `SUPRO_EVALUATION_PASS 12/12`              |
+| `pnpm build`                 | `/` 정적 페이지와 3개 API 라우트 빌드      |
+| `pnpm validate:openspec`     | strict 1/1 PASS                            |
+| `pnpm preflight:publication` | staged 공개검사 PASS, 승인된 origin 1개    |
 
 ## 실제 브라우저 검증
 
@@ -48,9 +49,20 @@
 - 영문 브랜드·패키지·환경변수·fixture URI를 `Sup-Ro AI`/`sup-ro`/`SUPRO`로 일괄 변경 후 동일 품질 게이트를 재실행했다.
 - 로컬 Git 작성자 이메일은 공개 개인정보 노출을 피하기 위해 저장소 전용 noreply 값을 사용했다. GitHub 계정 귀속이 필요하면 게시 전에 커밋 작성자를 사용자의 확인된 noreply 주소로 재작성한다.
 
+## Kakao Maps·Local 라이브 설정
+
+- 2026-07-14 `Sup-Ro` 개발자 앱을 교육 카테고리로 생성하고 지도 제품을 활성화했다.
+- 대시보드에서 확인된 기존 앱 3개는 지도 기능이 모두 꺼져 있어 `Sup-Ro`가 현재 계정의 첫 번째이자 유일한 지도 활성 앱이다.
+- JavaScript 키에는 `http://localhost:3000`만 등록했고 REST 키에는 로컬 동적 IP 제한을 걸지 않았다. 유료 API와 BizWallet은 활성화하지 않았다.
+- 실제 키는 Git에서 제외된 `.env.local`에만 저장했고 추적 파일·문서·로그에는 값을 기록하지 않았다.
+- `pnpm dev`는 `.env.local`을 읽어 로컬 HTTP 200을 반환했고, 렌더링 HTML에는 Kakao 지도 컨테이너와 fixture 데이터 모드가 함께 확인됐다.
+- `pnpm smoke:kakao`와 동등한 1회 검증에서 등록 도메인 Referer의 Maps SDK가 HTTP 200·3,898바이트를 반환했고 Local 키워드 검색도 HTTP 200·결과 1건을 반환했다.
+- 이 실행 환경의 브라우저 보안 클라이언트가 localhost 화면 접근을 차단해 실제 지도 타일의 시각 렌더링은 아직 증거로 남기지 못했다. SDK 수신·REST 응답·서버 HTML 계약까지는 확인했다.
+
 ## 미검증 경계
 
-- Kakao·공공데이터 실키의 응답, 쿼터, 비용, 등록 도메인
+- 공개 HTTPS 도메인에서의 Kakao 지도 타일 시각 렌더링과 2026-07-21 경로 API 최종 명세
+- Kakao 외 공공데이터 실키의 응답, 쿼터, 비용, 등록 도메인
 - 실제 장소 운영시간·가격·접근성·차량 동선
 - Windows 11 물리 장비의 설치·브라우저·성능
 - 학교 공식 양식의 출력 정합성과 공개 라이선스 범위

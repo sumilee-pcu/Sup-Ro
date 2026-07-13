@@ -10,12 +10,13 @@
 | 토픽        | `education`, `field-trip`, `geospatial`, `ai-agent`, `nextjs`, `korea`, `curriculum`, `typescript` |
 | 공개 범위   | Public — 2026-07-14 소유자 생성 확인                                                               |
 
-## 게시 전 남은 소유자 결정
+## 소유자가 나중에 할 최소 작업
 
 1. `수업로 AI(Sup-Ro AI)` 상표·도메인·앱스토어 이름 최종 확인
 2. 현재 모든 권리 유보를 유지할지, 별도 오픈소스 라이선스를 적용할지 결정
-3. 민감한 기관명·학교 양식·실제 API 키를 넣지 않았는지 마지막 확인
-4. Windows 11 실기기 검증을 게시 전 또는 게시 직후 게이트로 둘지 결정
+3. Windows 11 실기기에서 fixture 데모를 한 번 실행해 결과를 전달
+
+Kakao 앱 생성, localhost 도메인, 지도 활성화, 로컬 키 저장, SDK·Local 실호출 검증은 완료했다. 공개 URL이 생긴 뒤 Kakao 콘솔에 HTTPS 도메인을 추가하는 작업은 배포 단계에서 처리한다. 2026-07-21 경로 API 최종 명세 확인과 코드 반영도 유료 기능을 켜지 않는 범위에서는 에이전트가 계속 진행할 수 있다.
 
 ## 연결 상태와 게시 명령
 
@@ -41,6 +42,7 @@ git push -u origin main
 - remote: `origin` → `https://github.com/sumilee-pcu/Sup-Ro.git`
 - 원격 상태: Public 빈 저장소, push 미실행
 - 전체 자동 품질 게이트: PASS
+- Kakao Maps SDK·Local API 실호출: PASS, 키는 ignored `.env.local`에만 보관
 - GitHub 계정 귀속 전용 noreply 주소는 소유자가 확인 후 필요할 때 재작성
 
 ## 게시 직후

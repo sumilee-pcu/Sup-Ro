@@ -32,11 +32,20 @@ pnpm dev
 | 변수                            | 공개 여부     | 기본/역할                                        |
 | ------------------------------- | ------------- | ------------------------------------------------ |
 | `NEXT_PUBLIC_KAKAO_MAP_APP_KEY` | 브라우저 공개 | 비어 있으면 접근 가능한 fixture 지도             |
+| `SUPRO_KAKAO_SDK_REFERER`       | 공개 설정     | 라이브 스모크용 등록 도메인, 기본 localhost      |
 | `KAKAO_REST_API_KEY`            | 서버 전용     | Kakao Local 라이브 검색                          |
 | `KAKAO_MOBILITY_REST_API_KEY`   | 서버 전용     | 라이브 경로                                      |
 | `OPENAI_API_KEY`                | 서버 전용     | 선택적 모델 공급자, 현재 fixture 데모에는 불필요 |
 | `SUPRO_DATA_MODE`               | 서버 설정     | `fixture`, `cache`, `live`                       |
 | `SUPRO_DATABASE_PATH`           | 서버 설정     | 기본 `.data/sup-ro.sqlite`                       |
+
+현재 로컬 머신에는 Kakao JavaScript·REST 키가 `.env.local`에만 설정되어 있다. 이 파일은 `.gitignore` 대상이며 키 값을 문서, 이슈, 스크린샷, 클라이언트 오류에 복사하지 않는다. 라이브 연결만 재확인할 때는 개발 서버를 띄우지 않고 다음 명령을 실행한다.
+
+```bash
+pnpm smoke:kakao
+```
+
+이 명령은 등록된 localhost Referer로 지도 SDK를 한 번, Local 키워드 검색을 한 번 호출하고 상태와 결과 개수만 출력한다. 유료 기능을 활성화하거나 키 값을 출력하지 않는다.
 
 ## 백업과 초기화
 
@@ -78,3 +87,5 @@ pnpm dev
 ## 배포와 되돌리기
 
 현재 단계에서는 배포를 실행하지 않는다. 게시 승인을 받은 뒤에도 먼저 태그된 로컬 커밋에서 빌드하고, 오류 시 직전 검증 커밋으로 애플리케이션을 되돌린 뒤 데이터베이스는 별도 마이그레이션·백업 절차로 처리한다.
+
+공개 배포 URL이 정해지면 Kakao JavaScript 키에 해당 HTTPS 도메인만 추가한다. 서버가 고정 송신 IP를 제공하면 REST 키의 허용 IP를 그 주소로 제한한다. 배포 환경에는 `.env.local`을 업로드하지 않고 호스팅 서비스의 secret 저장소를 사용한다.

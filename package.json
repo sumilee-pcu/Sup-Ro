@@ -27,6 +27,7 @@
     "test:integration": "vitest run tests/integration",
     "test:browser": "vitest run tests/browser",
     "smoke:fixture": "node --import tsx scripts/fixture-smoke.ts",
+    "smoke:kakao": "node --env-file=.env.local --import tsx scripts/kakao-live-smoke.ts",
     "evaluate": "node --import tsx scripts/evaluate.ts",
     "preflight:publication": "node scripts/preflight-publication.mjs",
     "validate:openspec": "openspec validate build-ai-field-trip-coordinator-mvp --strict",
