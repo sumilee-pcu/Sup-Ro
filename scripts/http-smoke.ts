@@ -15,6 +15,11 @@ function resolves(command: string, prefix: string[]): boolean {
 }
 
 function resolvePackageManager(): PackageManagerCommand {
+  const npmExecPath = process.env.npm_execpath;
+  if (npmExecPath) {
+    return { command: process.execPath, prefix: [npmExecPath] };
+  }
+
   const candidates: PackageManagerCommand[] =
     process.platform === "win32"
       ? [
