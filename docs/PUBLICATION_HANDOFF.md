@@ -35,6 +35,15 @@ git push -u origin main
 
 현재 로컬 준비 단계에서는 위 명령을 실행하지 않는다. `git remote -v`가 비어 있어야 한다.
 
+## 로컬 전달 상태
+
+- 기준 구현 커밋: `2e5ba4f`
+- 브랜치: `main`
+- staged-tree 사전검사: PASS
+- remote: 0개
+- 전체 자동 품질 게이트: PASS
+- GitHub 계정 귀속 전용 noreply 주소는 소유자가 확인 후 필요할 때 재작성
+
 ## 게시 직후
 
 1. GitHub Actions `ci` 전체 통과 확인

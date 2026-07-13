@@ -133,6 +133,6 @@
 ## 13. Local release candidate before GitHub publication
 
 - [x] 13.1 Initialize a local Git repository with a privacy-safe ignore file and no remote configured
-- [ ] 13.2 Run secret, generated-file, license, and public-document checks against the exact staged tree
-- [ ] 13.3 Create intentional local commits for the validated fixture-first MVP and documentation
+- [x] 13.2 Run secret, generated-file, license, and public-document checks against the exact staged tree
+- [x] 13.3 Create intentional local commits for the validated fixture-first MVP and documentation
 - [x] 13.4 Produce a publication handoff containing repository name, suggested description, topics, default branch, remaining approval gates, and exact push steps without executing any GitHub mutation

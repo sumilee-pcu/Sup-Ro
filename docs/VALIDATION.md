@@ -17,16 +17,17 @@
 
 ## 자동 검증 명령
 
-| 명령                     | 기대 증거                             |
-| ------------------------ | ------------------------------------- |
-| `pnpm format:check`      | 변경 없이 포맷 확인                   |
-| `pnpm lint`              | 오류·경고 0건                         |
-| `pnpm typecheck`         | TypeScript 오류 0건                   |
-| `pnpm test`              | 9개 파일, 21개 자동 테스트 PASS       |
-| `pnpm smoke:fixture`     | `SUEOPRO_FIXTURE_SMOKE_PASS`          |
-| `pnpm evaluate`          | `SUEOPRO_EVALUATION_PASS 12/12`       |
-| `pnpm build`             | `/` 정적 페이지와 3개 API 라우트 빌드 |
-| `pnpm validate:openspec` | strict 1/1 PASS                       |
+| 명령                         | 기대 증거                             |
+| ---------------------------- | ------------------------------------- |
+| `pnpm format:check`          | 변경 없이 포맷 확인                   |
+| `pnpm lint`                  | 오류·경고 0건                         |
+| `pnpm typecheck`             | TypeScript 오류 0건                   |
+| `pnpm test`                  | 9개 파일, 21개 자동 테스트 PASS       |
+| `pnpm smoke:fixture`         | `SUEOPRO_FIXTURE_SMOKE_PASS`          |
+| `pnpm evaluate`              | `SUEOPRO_EVALUATION_PASS 12/12`       |
+| `pnpm build`                 | `/` 정적 페이지와 3개 API 라우트 빌드 |
+| `pnpm validate:openspec`     | strict 1/1 PASS                       |
+| `pnpm preflight:publication` | staged 공개검사 PASS, remote 0개      |
 
 ## 실제 브라우저 검증
 
@@ -37,6 +38,14 @@
 - 교사 승인: `Approved`, 문서 `승인본`, 초안 문구 제거 확인
 - 390×844 viewport: 작업공간 block 전환, 지도 대체 목록 표시, 패널 347px, 가로 overflow 없음
 - 브라우저 console warning/error: 0건
+
+## 로컬 릴리스 후보
+
+- 전체 품질 게이트 `pnpm check`: PASS
+- 첫 구현 커밋: `2e5ba4f` (`feat: build fixture-first field trip coordinator`)
+- staged-tree 공개 검사: 86개 파일 PASS
+- Git remote: 0개
+- 로컬 Git 작성자 이메일은 공개 개인정보 노출을 피하기 위해 저장소 전용 noreply 값을 사용했다. GitHub 계정 귀속이 필요하면 게시 전에 커밋 작성자를 사용자의 확인된 noreply 주소로 재작성한다.
 
 ## 미검증 경계
 
