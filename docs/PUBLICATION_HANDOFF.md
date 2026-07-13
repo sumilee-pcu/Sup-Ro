@@ -36,13 +36,14 @@ git push -u origin main
 
 ## 로컬 전달 상태
 
-- 기준 구현 커밋: `2e5ba4f`
+- 기준 게시 구현 커밋: `a414664`
 - 브랜치: `main`
 - staged-tree 사전검사: PASS
 - remote: `origin` → `https://github.com/sumilee-pcu/Sup-Ro.git`
-- 원격 상태: Public, 초기 `main` 게시 승인 완료
+- 원격 상태: Public, `main` 게시 및 추적 완료
 - 전체 자동 품질 게이트: PASS
 - Kakao Maps SDK·Local API 실호출: PASS, 키는 ignored `.env.local`에만 보관
+- GitHub Actions: Ubuntu·Windows 모두 PASS ([실행 29290164853](https://github.com/sumilee-pcu/Sup-Ro/actions/runs/29290164853))
 - GitHub 계정 귀속 전용 noreply 주소는 소유자가 확인 후 필요할 때 재작성
 
 ## 게시 검증

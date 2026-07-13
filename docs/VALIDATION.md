@@ -49,7 +49,14 @@
 - Git remote: 승인된 `origin` 1개, 2026-07-14 초기 게시 승인 완료
 - 영문 브랜드·패키지·환경변수·fixture URI를 `Sup-Ro AI`/`sup-ro`/`SUPRO`로 일괄 변경 후 동일 품질 게이트를 재실행했다.
 - 로컬 Git 작성자 이메일은 공개 개인정보 노출을 피하기 위해 저장소 전용 noreply 값을 사용했다. GitHub 계정 귀속이 필요하면 게시 전에 커밋 작성자를 사용자의 확인된 noreply 주소로 재작성한다.
-- GitHub Actions는 `ubuntu-latest`와 `windows-latest`에서 같은 테스트·빌드·HTTP 스모크를 실행하도록 구성했다. 이는 자동 Windows 호환성 증거이며 G14 물리 장비 검증을 대체하지 않는다.
+- GitHub Actions는 `ubuntu-latest`와 `windows-latest`에서 같은 테스트·빌드·HTTP 스모크를 실행하도록 구성했다. 이는 자동 Windows 호환성 증거이며 지정 물리 장비 검증을 대체하지 않는다.
+
+## GitHub Actions Windows 자동 검증
+
+- [CI 실행 29290164853](https://github.com/sumilee-pcu/Sup-Ro/actions/runs/29290164853)에서 Ubuntu와 Windows 작업이 모두 성공했다.
+- Windows Server 2025 러너에서 Node.js 22.19.0·pnpm 11.1.2 설치, 테스트 9개 파일·21개 케이스, fixture 스모크, 평가 12/12, Next.js 프로덕션 빌드, OpenSpec strict 검증이 통과했다.
+- 빌드 서버가 `SUPRO_HTTP_SMOKE_PASS platform=win32 http=200 fixture=true`를 반환했고 원클릭 스크립트가 `SUPRO_WINDOWS_READY`를 반환했다.
+- 이 결과는 Windows 코드·셸·줄바꿈·빌드·HTTP 호환성 증거다. 지정 물리 장비의 Chrome/Edge 화면·성능 검증은 별도 게이트로 유지한다.
 
 ## Kakao Maps·Local 라이브 설정
 
