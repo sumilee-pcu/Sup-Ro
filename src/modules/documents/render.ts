@@ -132,7 +132,7 @@ export function buildDocumentModel(
       (candidate) => candidate.id === stop.placeId,
     );
     const mapReference =
-      place?.mapUrl ?? `fixture://sueop-ro/map/${place?.id ?? stop.placeId}`;
+      place?.mapUrl ?? `fixture://sup-ro/map/${place?.id ?? stop.placeId}`;
     return `| ${stop.arrivalTime}–${stop.departureTime} | ${place?.name ?? stop.placeId} ([지도 참조](${mapReference})) | ${stop.purpose} |`;
   });
   return {

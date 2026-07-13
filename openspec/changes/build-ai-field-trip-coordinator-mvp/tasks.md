@@ -1,9 +1,10 @@
 ## 0. Naming and approval-gate split
 
 - [x] 0.1 Compare Korean and English naming candidates for meaning, expansion fit, pronunciation, and visible web-service collisions
-- [x] 0.2 Select `수업로 AI(SueopRo AI)` as the working brand and `sueop-ro` as the repository slug
+- [x] 0.2 Select `수업로 AI` as the Korean working brand and record the initial English and repository naming decision
 - [x] 0.3 Document which tasks can proceed locally and which require external account access, legal review, physical-device access, or GitHub publication approval
 - [x] 0.4 Rename the local project directory and update all project identity references before Git initialization
+- [x] 0.5 Shorten the English brand to `Sup-Ro AI`, align package and internal identifiers to `sup-ro`/`SUPRO`, rename the local directory, and verify the exact GitHub repository handoff
 
 ## 1. Project foundation
 

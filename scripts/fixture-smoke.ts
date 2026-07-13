@@ -24,5 +24,5 @@ for (const type of [
     throw new Error(`${type} 초안 생성에 실패했습니다.`);
 }
 console.log(
-  `SUEOPRO_FIXTURE_SMOKE_PASS plan=${plan.id} state=${plan.state} stops=${plan.itinerary.length} findings=${plan.findings.length}`,
+  `SUPRO_FIXTURE_SMOKE_PASS plan=${plan.id} state=${plan.state} stops=${plan.itinerary.length} findings=${plan.findings.length}`,
 );

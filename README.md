@@ -1,6 +1,6 @@
 # 수업로 AI
 
-수업로 AI(SueopRo AI)는 교실 밖 배움의 목표, 장소, 이동, 안전, 접근성을 하나의 경로로 연결하는 교육과정 기반 지리공간 에이전트 플랫폼입니다.
+수업로 AI(Sup-Ro AI)는 교실 밖 배움의 목표, 장소, 이동, 안전, 접근성을 하나의 경로로 연결하는 교육과정 기반 지리공간 에이전트 플랫폼입니다.
 
 첫 번째 서비스는 교육과정 성취기준, 학년, 출발지, 시간, 예산, 안전, 접근성 조건을 함께 고려해 체험학습 장소와 일정을 설계하는 AI 체험학습 코디네이터입니다.
 
@@ -51,7 +51,7 @@ pnpm validate:openspec
 
 ## 외부 연동
 
-`.env.example`을 `.env.local`로 복사할 수 있습니다. 기본 `SUEOPRO_DATA_MODE=fixture`에서는 키가 전혀 필요하지 않습니다. `NEXT_PUBLIC_` 접두사가 붙은 Kakao JavaScript 키만 브라우저에 포함될 수 있으며 REST·모델 키는 서버 전용입니다.
+`.env.example`을 `.env.local`로 복사할 수 있습니다. 기본 `SUPRO_DATA_MODE=fixture`에서는 키가 전혀 필요하지 않습니다. `NEXT_PUBLIC_` 접두사가 붙은 Kakao JavaScript 키만 브라우저에 포함될 수 있으며 REST·모델 키는 서버 전용입니다.
 
 라이브 연동 활성화, 상표·도메인 확정, 공개 라이선스 선택, Windows 11 실기기 검증, GitHub 원격 생성과 push는 소유자 승인 게이트로 남겨 두었습니다.
 

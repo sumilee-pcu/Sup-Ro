@@ -25,10 +25,10 @@ export function getPublicConfig(
 export function getServerConfig(
   env: NodeJS.ProcessEnv = process.env,
 ): ServerConfig {
-  const mode = env.SUEOPRO_DATA_MODE ?? "fixture";
+  const mode = env.SUPRO_DATA_MODE ?? "fixture";
   if (!(["live", "cache", "fixture"] as string[]).includes(mode)) {
     throw new Error(
-      "SUEOPRO_DATA_MODE는 live, cache, fixture 중 하나여야 합니다.",
+      "SUPRO_DATA_MODE는 live, cache, fixture 중 하나여야 합니다.",
     );
   }
 
@@ -45,7 +45,7 @@ export function getServerConfig(
 
   return {
     dataMode: mode as DataMode,
-    databasePath: env.SUEOPRO_DATABASE_PATH ?? ".data/sueop-ro.sqlite",
+    databasePath: env.SUPRO_DATABASE_PATH ?? ".data/sup-ro.sqlite",
     secrets,
   };
 }

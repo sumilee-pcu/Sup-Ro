@@ -10,8 +10,8 @@ export default defineConfig({
     clearMocks: true,
     sequence: { shuffle: false },
     env: {
-      SUEOPRO_DATA_MODE: "fixture",
-      SUEOPRO_DATABASE_PATH: ":memory:",
+      SUPRO_DATA_MODE: "fixture",
+      SUPRO_DATABASE_PATH: ":memory:",
       TZ: "Asia/Seoul",
     },
   },

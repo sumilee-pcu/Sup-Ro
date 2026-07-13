@@ -88,7 +88,7 @@ async function main() {
   );
   if (passCount !== results.length)
     throw new Error(`BENCHMARK_FAIL ${passCount}/${results.length}`);
-  console.log(`SUEOPRO_EVALUATION_PASS ${passCount}/${results.length}`);
+  console.log(`SUPRO_EVALUATION_PASS ${passCount}/${results.length}`);
 }
 
 main().catch((error: unknown) => {

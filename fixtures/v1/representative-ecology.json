@@ -45,7 +45,7 @@
       "name": "수업로중학교(시연용)",
       "category": "출발·도착",
       "address": "경기도 수원시 시연로 1(가상 주소)",
-      "mapUrl": "fixture://sueop-ro/map/place-school",
+      "mapUrl": "fixture://sup-ro/map/place-school",
       "latitude": 37.2636,
       "longitude": 127.0286,
       "openingHours": { "open": "08:00", "close": "18:00", "verified": true },
@@ -63,7 +63,7 @@
       "name": "도시생태학습관(시연용)",
       "category": "생태교육",
       "address": "경기도 수원시 생태로 24(가상 주소)",
-      "mapUrl": "fixture://sueop-ro/map/place-eco-lab",
+      "mapUrl": "fixture://sup-ro/map/place-eco-lab",
       "latitude": 37.2825,
       "longitude": 127.0138,
       "openingHours": { "open": "09:30", "close": "17:00", "verified": true },
@@ -81,7 +81,7 @@
       "name": "버드나무습지 관찰원(시연용)",
       "category": "야외관찰",
       "address": "경기도 수원시 습지로 15(가상 주소)",
-      "mapUrl": "fixture://sueop-ro/map/place-wetland",
+      "mapUrl": "fixture://sup-ro/map/place-wetland",
       "latitude": 37.3013,
       "longitude": 127.0314,
       "openingHours": { "open": "09:00", "close": "17:30", "verified": true },
@@ -205,7 +205,7 @@
     {
       "id": "evidence-place-school",
       "label": "시연용 출발지",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "confirmed"
@@ -213,7 +213,7 @@
     {
       "id": "evidence-place-eco",
       "label": "시연용 생태학습관",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "confirmed"
@@ -221,7 +221,7 @@
     {
       "id": "evidence-place-wetland",
       "label": "시연용 습지 관찰원",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "confirmed"
@@ -229,7 +229,7 @@
     {
       "id": "evidence-route",
       "label": "시연용 이동시간 행렬",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "estimated",
@@ -238,7 +238,7 @@
     {
       "id": "evidence-cost",
       "label": "시연용 비용표",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "estimated",
@@ -247,7 +247,7 @@
     {
       "id": "evidence-weather",
       "label": "시연용 기상",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "estimated"
@@ -255,7 +255,7 @@
     {
       "id": "evidence-air",
       "label": "시연용 대기질",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "estimated"
@@ -263,7 +263,7 @@
     {
       "id": "evidence-access",
       "label": "시연용 접근성 체크",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "confirmed"
@@ -271,7 +271,7 @@
     {
       "id": "evidence-facility",
       "label": "시연용 안전시설 체크",
-      "provider": "SueopRo Fixture v1",
+      "provider": "Sup-Ro Fixture v1",
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "estimated"

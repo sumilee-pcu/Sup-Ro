@@ -17,7 +17,7 @@ function result<T>(
 ): ProviderResult<T> {
   return {
     data,
-    source: { provider, url: "fixture://sueop-ro/v1/representative-ecology" },
+    source: { provider, url: "fixture://sup-ro/v1/representative-ecology" },
     retrievedAt,
     staleAt: "2026-08-13T09:00:00+09:00",
     mode: "fixture",
@@ -33,7 +33,7 @@ export const fixtureProviders: ProviderSet = {
     async search() {
       return result(
         structuredClone(fixture.places) as PlaceCandidate[],
-        "SueopRo Fixture Place Provider",
+        "Sup-Ro Fixture Place Provider",
       );
     },
   },
@@ -41,7 +41,7 @@ export const fixtureProviders: ProviderSet = {
     async getLegs() {
       return result(
         structuredClone(fixture.routeLegs) as RouteLeg[],
-        "SueopRo Fixture Route Provider",
+        "Sup-Ro Fixture Route Provider",
       );
     },
   },
@@ -59,7 +59,7 @@ export const fixtureProviders: ProviderSet = {
         structuredClone(
           fixture.safety.filter((item) => item.category === "weather"),
         ) as SafetyEvidence[],
-        "SueopRo Fixture Weather Provider",
+        "Sup-Ro Fixture Weather Provider",
       );
     },
   },
@@ -69,7 +69,7 @@ export const fixtureProviders: ProviderSet = {
         structuredClone(
           fixture.safety.filter((item) => item.category === "air-quality"),
         ) as SafetyEvidence[],
-        "SueopRo Fixture Air Provider",
+        "Sup-Ro Fixture Air Provider",
       );
     },
   },
@@ -81,7 +81,7 @@ export const fixtureProviders: ProviderSet = {
             ["facility", "accessibility", "transport"].includes(item.category),
           ),
         ) as SafetyEvidence[],
-        "SueopRo Fixture Safety Provider",
+        "Sup-Ro Fixture Safety Provider",
       );
     },
   },

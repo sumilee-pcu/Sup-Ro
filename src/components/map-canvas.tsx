@@ -72,14 +72,14 @@ export function MapCanvas({
       });
     };
     const existing = document.querySelector<HTMLScriptElement>(
-      "script[data-sueopro-kakao]",
+      "script[data-supro-kakao]",
     );
     if (existing) {
       render();
       return;
     }
     const script = document.createElement("script");
-    script.dataset.sueoproKakao = "true";
+    script.dataset.suproKakao = "true";
     script.async = true;
     script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appKey)}&autoload=false`;
     script.onload = render;

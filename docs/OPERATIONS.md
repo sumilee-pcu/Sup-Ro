@@ -35,13 +35,13 @@ pnpm dev
 | `KAKAO_REST_API_KEY`            | 서버 전용     | Kakao Local 라이브 검색                          |
 | `KAKAO_MOBILITY_REST_API_KEY`   | 서버 전용     | 라이브 경로                                      |
 | `OPENAI_API_KEY`                | 서버 전용     | 선택적 모델 공급자, 현재 fixture 데모에는 불필요 |
-| `SUEOPRO_DATA_MODE`             | 서버 설정     | `fixture`, `cache`, `live`                       |
-| `SUEOPRO_DATABASE_PATH`         | 서버 설정     | 기본 `.data/sueop-ro.sqlite`                     |
+| `SUPRO_DATA_MODE`               | 서버 설정     | `fixture`, `cache`, `live`                       |
+| `SUPRO_DATABASE_PATH`           | 서버 설정     | 기본 `.data/sup-ro.sqlite`                       |
 
 ## 백업과 초기화
 
 1. 서버를 중지한다.
-2. `.data/sueop-ro.sqlite`, `-wal`, `-shm` 파일을 같은 시점에 복사한다.
+2. `.data/sup-ro.sqlite`, `-wal`, `-shm` 파일을 같은 시점에 복사한다.
 3. fixture는 Git 버전으로 복구한다.
 4. 로컬 계획을 완전히 초기화하려면 서버 중지 후 `.data/`를 별도 백업하고 삭제한 뒤 다시 실행한다.
 
@@ -63,13 +63,13 @@ pnpm dev
 macOS/Linux:
 
 ```bash
-SUEOPRO_DATA_MODE=fixture pnpm dev
+SUPRO_DATA_MODE=fixture pnpm dev
 ```
 
 Windows PowerShell:
 
 ```powershell
-$env:SUEOPRO_DATA_MODE="fixture"
+$env:SUPRO_DATA_MODE="fixture"
 pnpm dev
 ```
 

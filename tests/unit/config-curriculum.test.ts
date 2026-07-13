@@ -16,7 +16,7 @@ describe("환경 비밀과 교육과정 버전", () => {
     const env: NodeJS.ProcessEnv = {
       ...process.env,
       NODE_ENV: "test",
-      SUEOPRO_DATA_MODE: "fixture",
+      SUPRO_DATA_MODE: "fixture",
       KAKAO_REST_API_KEY: "test-key",
       NEXT_PUBLIC_KAKAO_MAP_APP_KEY: "public-app-key",
     };

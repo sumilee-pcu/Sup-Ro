@@ -83,14 +83,24 @@ for (const path of staged) {
   }
 }
 
-const remotes = git(["remote"]).trim();
-if (remotes) failures.push(`GitHub 승인 전 remote가 존재합니다: ${remotes}`);
+const expectedRemote = "https://github.com/sumilee-pcu/Sup-Ro.git";
+const remotes = git(["remote"]).trim().split("\n").filter(Boolean);
+if (remotes.length !== 1 || remotes[0] !== "origin") {
+  failures.push(
+    `승인된 origin 하나만 허용됩니다: ${remotes.join(", ") || "없음"}`,
+  );
+} else {
+  const originUrl = git(["remote", "get-url", "origin"]).trim();
+  if (originUrl !== expectedRemote) {
+    failures.push(`origin 대상이 승인된 저장소와 다릅니다: ${originUrl}`);
+  }
+}
 
 if (failures.length > 0) {
   console.error(failures.map((item) => `- ${item}`).join("\n"));
   process.exitCode = 1;
 } else {
   console.log(
-    `SUEOPRO_PUBLICATION_PREFLIGHT_PASS staged=${staged.length} remote=0`,
+    `SUPRO_PUBLICATION_PREFLIGHT_PASS staged=${staged.length} remote=origin`,
   );
 }
