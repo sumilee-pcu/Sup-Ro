@@ -1,0 +1,52 @@
+{
+  "name": "sueop-ro",
+  "version": "0.1.0",
+  "private": true,
+  "description": "수업로 AI - 교육과정과 대한민국 지도를 연결하는 AI 체험학습 코디네이터",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "packageManager": "pnpm@11.1.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:browser": "vitest run tests/browser",
+    "smoke:fixture": "node --import tsx scripts/fixture-smoke.ts",
+    "evaluate": "node --import tsx scripts/evaluate.ts",
+    "preflight:publication": "node scripts/preflight-publication.mjs",
+    "validate:openspec": "openspec validate build-ai-field-trip-coordinator-mvp --strict",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm smoke:fixture && pnpm evaluate && pnpm build && pnpm validate:openspec"
+  },
+  "dependencies": {
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "1.5.0",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "prettier": "3.6.2",
+    "tsx": "4.23.0",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
+  }
+}

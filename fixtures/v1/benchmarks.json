@@ -1,0 +1,115 @@
+{
+  "version": "benchmark-v1",
+  "generatedAt": "2026-07-13T09:00:00+09:00",
+  "synthetic": true,
+  "cases": [
+    {
+      "id": "b01-ms2-suwon-bus-feasible",
+      "schoolLevel": "중학교",
+      "grade": 2,
+      "region": "경기",
+      "transport": "전세버스",
+      "condition": "feasible",
+      "expectedReady": true
+    },
+    {
+      "id": "b02-es5-seoul-transit-feasible",
+      "schoolLevel": "초등학교",
+      "grade": 5,
+      "region": "서울",
+      "transport": "대중교통",
+      "condition": "feasible",
+      "expectedReady": true
+    },
+    {
+      "id": "b03-hs1-incheon-walk-overtime",
+      "schoolLevel": "고등학교",
+      "grade": 1,
+      "region": "인천",
+      "transport": "도보",
+      "condition": "overtime",
+      "expectedReady": false
+    },
+    {
+      "id": "b04-ms1-busan-transit-closed",
+      "schoolLevel": "중학교",
+      "grade": 1,
+      "region": "부산",
+      "transport": "대중교통",
+      "condition": "closed",
+      "expectedReady": false
+    },
+    {
+      "id": "b05-es6-jeju-bus-budget",
+      "schoolLevel": "초등학교",
+      "grade": 6,
+      "region": "제주",
+      "transport": "전세버스",
+      "condition": "budget",
+      "expectedReady": false
+    },
+    {
+      "id": "b06-ms3-daejeon-transit-access",
+      "schoolLevel": "중학교",
+      "grade": 3,
+      "region": "대전",
+      "transport": "대중교통",
+      "condition": "accessibility",
+      "expectedReady": false
+    },
+    {
+      "id": "b07-hs2-gwangju-bus-route",
+      "schoolLevel": "고등학교",
+      "grade": 2,
+      "region": "광주",
+      "transport": "전세버스",
+      "condition": "route-failure",
+      "expectedReady": false
+    },
+    {
+      "id": "b08-es4-daegu-walk-rain",
+      "schoolLevel": "초등학교",
+      "grade": 4,
+      "region": "대구",
+      "transport": "도보",
+      "condition": "rain",
+      "expectedReady": true
+    },
+    {
+      "id": "b09-ms2-ulsan-transit-air",
+      "schoolLevel": "중학교",
+      "grade": 2,
+      "region": "울산",
+      "transport": "대중교통",
+      "condition": "air-quality",
+      "expectedReady": true
+    },
+    {
+      "id": "b10-hs3-gangwon-bus-feasible",
+      "schoolLevel": "고등학교",
+      "grade": 3,
+      "region": "강원",
+      "transport": "전세버스",
+      "condition": "feasible",
+      "expectedReady": true
+    },
+    {
+      "id": "b11-es3-jeonbuk-transit-missing-input",
+      "schoolLevel": "초등학교",
+      "grade": 3,
+      "region": "전북",
+      "transport": "대중교통",
+      "condition": "missing-input",
+      "expectedReady": false
+    },
+    {
+      "id": "b12-ms2-chungnam-bus-provider-outage",
+      "schoolLevel": "중학교",
+      "grade": 2,
+      "region": "충남",
+      "transport": "전세버스",
+      "condition": "provider-outage",
+      "expectedReady": false
+    }
+  ]
+}

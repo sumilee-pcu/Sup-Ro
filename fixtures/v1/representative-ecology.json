@@ -1,0 +1,280 @@
+{
+  "fixtureVersion": "v1",
+  "scenario": "중학교 2학년 과학 생태계 체험학습",
+  "retrievedAt": "2026-07-13T09:00:00+09:00",
+  "constraints": {
+    "schoolLevel": "중학교",
+    "grade": 2,
+    "subject": "과학",
+    "learningGoal": "생태계 구성 요소의 상호작용을 현장 관찰 근거로 설명한다.",
+    "origin": "수업로중학교(시연용)",
+    "tripDate": "2026-09-18",
+    "departureTime": "09:00",
+    "returnTime": "15:30",
+    "participantCount": 28,
+    "adultCount": 3,
+    "budgetPerPerson": 30000,
+    "transportMode": "전세버스",
+    "wheelchairAccessRequired": true,
+    "avoidStairs": true,
+    "quietSpaceRequired": false,
+    "mealRequired": true,
+    "notes": "학생 개인식별정보를 입력하지 않습니다.",
+    "mandatoryPlaceIds": ["place-eco-lab"],
+    "excludedPlaceIds": []
+  },
+  "curriculum": [
+    {
+      "id": "curriculum-ms2-science-ecosystem-demo",
+      "datasetVersion": "2022-revised-demo-v1",
+      "authority": "국가교육과정정보센터(NCIC) 연결 시연 자료",
+      "notice": "교육부 고시 제2022-33호 기반 수업 설계용 요약이며 고시 원문 인용이 아님",
+      "schoolLevel": "중학교",
+      "grade": 2,
+      "subject": "과학",
+      "standardId": "DEMO-MS2-SCI-ECO-01",
+      "sourceText": "생태계 구성 요소의 관계와 환경 변화가 생태계에 미치는 영향을 탐구하는 수업 목표 요약(시연용)",
+      "generatedInterpretation": "현장에서 생물·비생물 요소를 관찰하고 상호작용 근거를 기록한 뒤 교실에서 변화 시나리오를 설명하도록 연결합니다.",
+      "sourceUrl": "https://ncic.go.kr/board/B0031.cs?act=read&bwrId=1271&pageIndex=1&pageUnit=15",
+      "status": "confirmed"
+    }
+  ],
+  "places": [
+    {
+      "id": "place-school",
+      "name": "수업로중학교(시연용)",
+      "category": "출발·도착",
+      "address": "경기도 수원시 시연로 1(가상 주소)",
+      "mapUrl": "fixture://sueop-ro/map/place-school",
+      "latitude": 37.2636,
+      "longitude": 127.0286,
+      "openingHours": { "open": "08:00", "close": "18:00", "verified": true },
+      "visitMinutes": 0,
+      "costPerStudent": 0,
+      "accessibility": "verified-accessible",
+      "isIndoor": true,
+      "curriculumAlignment": "오리엔테이션과 관찰 기준 공유",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-school",
+      "locked": true
+    },
+    {
+      "id": "place-eco-lab",
+      "name": "도시생태학습관(시연용)",
+      "category": "생태교육",
+      "address": "경기도 수원시 생태로 24(가상 주소)",
+      "mapUrl": "fixture://sueop-ro/map/place-eco-lab",
+      "latitude": 37.2825,
+      "longitude": 127.0138,
+      "openingHours": { "open": "09:30", "close": "17:00", "verified": true },
+      "visitMinutes": 100,
+      "costPerStudent": 5000,
+      "accessibility": "verified-accessible",
+      "isIndoor": true,
+      "curriculumAlignment": "생태계 구성 요소 분류와 먹이 관계 모형 탐구",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-eco",
+      "locked": true
+    },
+    {
+      "id": "place-wetland",
+      "name": "버드나무습지 관찰원(시연용)",
+      "category": "야외관찰",
+      "address": "경기도 수원시 습지로 15(가상 주소)",
+      "mapUrl": "fixture://sueop-ro/map/place-wetland",
+      "latitude": 37.3013,
+      "longitude": 127.0314,
+      "openingHours": { "open": "09:00", "close": "17:30", "verified": true },
+      "visitMinutes": 85,
+      "costPerStudent": 0,
+      "accessibility": "verified-accessible",
+      "isIndoor": false,
+      "curriculumAlignment": "생물·비생물 요소 관찰과 상호작용 증거 기록",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-wetland"
+    }
+  ],
+  "routeLegs": [
+    {
+      "id": "route-school-eco",
+      "fromPlaceId": "place-school",
+      "toPlaceId": "place-eco-lab",
+      "mode": "전세버스",
+      "durationMinutes": 35,
+      "distanceMeters": 7200,
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-route"
+    },
+    {
+      "id": "route-eco-wetland",
+      "fromPlaceId": "place-eco-lab",
+      "toPlaceId": "place-wetland",
+      "mode": "전세버스",
+      "durationMinutes": 25,
+      "distanceMeters": 5100,
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-route"
+    },
+    {
+      "id": "route-wetland-school",
+      "fromPlaceId": "place-wetland",
+      "toPlaceId": "place-school",
+      "mode": "전세버스",
+      "durationMinutes": 40,
+      "distanceMeters": 8300,
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-route"
+    }
+  ],
+  "costs": [
+    {
+      "id": "cost-admission",
+      "label": "학습관 체험비",
+      "amount": 140000,
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-cost"
+    },
+    {
+      "id": "cost-bus",
+      "label": "전세버스",
+      "amount": 500000,
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-cost"
+    },
+    {
+      "id": "cost-material",
+      "label": "관찰 활동 재료",
+      "amount": 56000,
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-cost"
+    }
+  ],
+  "safety": [
+    {
+      "id": "safety-weather",
+      "category": "weather",
+      "summary": "시연용 예보: 야외 관찰 가능, 당일 공식 예보 재확인 필요",
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-weather",
+      "requiresOfficialConfirmation": true
+    },
+    {
+      "id": "safety-air",
+      "category": "air-quality",
+      "summary": "시연용 대기 상태: 보통, 출발 전 공식 측정값 재확인 필요",
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-air",
+      "requiresOfficialConfirmation": true
+    },
+    {
+      "id": "safety-access",
+      "category": "accessibility",
+      "summary": "시연 데이터상 두 장소 모두 무단차 동선 제공",
+      "status": "confirmed",
+      "sourceEvidenceId": "evidence-access",
+      "requiresOfficialConfirmation": true
+    },
+    {
+      "id": "safety-facility",
+      "category": "facility",
+      "summary": "응급 대응 지점과 인솔자 집결 위치를 운영계획서에서 확인",
+      "status": "estimated",
+      "sourceEvidenceId": "evidence-facility",
+      "requiresOfficialConfirmation": true
+    },
+    {
+      "id": "safety-transport",
+      "category": "transport",
+      "summary": "대형차 승하차 위치는 운송업체·장소에 사전 확인",
+      "status": "unverified",
+      "sourceEvidenceId": "evidence-route",
+      "requiresOfficialConfirmation": true
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-curriculum",
+      "label": "2022 개정 교육과정 고시 안내",
+      "provider": "국가교육과정정보센터(NCIC)",
+      "url": "https://ncic.go.kr/board/B0031.cs?act=read&bwrId=1271&pageIndex=1&pageUnit=15",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed",
+      "note": "고시 연결과 지원 범위 확인용. 성취기준 원문이 아닌 시연용 요약 사용."
+    },
+    {
+      "id": "evidence-place-school",
+      "label": "시연용 출발지",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed"
+    },
+    {
+      "id": "evidence-place-eco",
+      "label": "시연용 생태학습관",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed"
+    },
+    {
+      "id": "evidence-place-wetland",
+      "label": "시연용 습지 관찰원",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed"
+    },
+    {
+      "id": "evidence-route",
+      "label": "시연용 이동시간 행렬",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "estimated",
+      "note": "실제 운행시간이 아님"
+    },
+    {
+      "id": "evidence-cost",
+      "label": "시연용 비용표",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "estimated",
+      "note": "실제 견적이 아님"
+    },
+    {
+      "id": "evidence-weather",
+      "label": "시연용 기상",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "estimated"
+    },
+    {
+      "id": "evidence-air",
+      "label": "시연용 대기질",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "estimated"
+    },
+    {
+      "id": "evidence-access",
+      "label": "시연용 접근성 체크",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed"
+    },
+    {
+      "id": "evidence-facility",
+      "label": "시연용 안전시설 체크",
+      "provider": "SueopRo Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "estimated"
+    }
+  ]
+}

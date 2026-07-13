@@ -1,0 +1,33 @@
+{
+  "version": "v1",
+  "cases": [
+    {
+      "id": "venue-closure",
+      "mutation": {
+        "placeId": "place-eco-lab",
+        "openingHours": { "open": "00:00", "close": "00:00", "verified": true }
+      },
+      "expectedRule": "OPERATING_HOURS"
+    },
+    {
+      "id": "budget-overrun",
+      "mutation": { "budgetPerPerson": 10000 },
+      "expectedRule": "BUDGET_LIMIT"
+    },
+    {
+      "id": "missing-accessibility",
+      "mutation": { "placeId": "place-wetland", "accessibility": "unverified" },
+      "expectedRule": "ACCESSIBILITY_EVIDENCE"
+    },
+    {
+      "id": "rain-alternative",
+      "mutation": { "weather": "heavy-rain" },
+      "expectedRule": "WEATHER_ALTERNATIVE"
+    },
+    {
+      "id": "route-failure",
+      "mutation": { "routeId": "route-eco-wetland", "durationMinutes": null },
+      "expectedRule": "UNRESOLVED_ROUTE"
+    }
+  ]
+}

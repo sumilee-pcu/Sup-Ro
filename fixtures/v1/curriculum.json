@@ -1,0 +1,35 @@
+{
+  "version": "2022-revised-demo-v1",
+  "publishedAt": "2026-07-13T09:00:00+09:00",
+  "sourceUrl": "https://ncic.go.kr/board/B0031.cs?act=read&bwrId=1271&pageIndex=1&pageUnit=15",
+  "records": [
+    {
+      "id": "curriculum-ms2-science-ecosystem-demo",
+      "datasetVersion": "2022-revised-demo-v1",
+      "authority": "국가교육과정정보센터(NCIC) 연결 시연 자료",
+      "notice": "교육부 고시 제2022-33호 기반 수업 설계용 요약이며 고시 원문 인용이 아님",
+      "schoolLevel": "중학교",
+      "grade": 2,
+      "subject": "과학",
+      "standardId": "DEMO-MS2-SCI-ECO-01",
+      "sourceText": "생태계 구성 요소의 관계와 환경 변화가 생태계에 미치는 영향을 탐구하는 수업 목표 요약(시연용)",
+      "generatedInterpretation": "현장에서 생물·비생물 요소를 관찰하고 상호작용 근거를 기록한 뒤 교실에서 변화 시나리오를 설명하도록 연결합니다.",
+      "sourceUrl": "https://ncic.go.kr/board/B0031.cs?act=read&bwrId=1271&pageIndex=1&pageUnit=15",
+      "status": "confirmed"
+    },
+    {
+      "id": "curriculum-es5-science-environment-demo",
+      "datasetVersion": "2022-revised-demo-v1",
+      "authority": "국가교육과정정보센터(NCIC) 연결 시연 자료",
+      "notice": "교육부 고시 제2022-33호 기반 수업 설계용 요약이며 고시 원문 인용이 아님",
+      "schoolLevel": "초등학교",
+      "grade": 5,
+      "subject": "과학",
+      "standardId": "DEMO-ES5-SCI-ENV-01",
+      "sourceText": "생물과 환경의 관계를 관찰 자료로 설명하는 수업 목표 요약(시연용)",
+      "generatedInterpretation": "장소별 관찰표를 사용해 서식 환경과 생물의 특징을 비교하도록 구성합니다.",
+      "sourceUrl": "https://ncic.go.kr/board/B0031.cs?act=read&bwrId=1271&pageIndex=1&pageUnit=15",
+      "status": "confirmed"
+    }
+  ]
+}
