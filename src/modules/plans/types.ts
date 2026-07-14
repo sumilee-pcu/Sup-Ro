@@ -90,6 +90,28 @@ export interface PlaceCandidate {
   locked?: boolean;
 }
 
+export type RecommendationEligibility = "eligible" | "review" | "blocked";
+
+export interface RecommendationDimensionScores {
+  curriculum: number;
+  travel: number;
+  cost: number;
+  accessibility: number;
+  weatherResilience: number;
+  evidence: number;
+}
+
+export interface PlaceRecommendation {
+  placeId: string;
+  rank: number;
+  score: number;
+  eligibility: RecommendationEligibility;
+  dimensions: RecommendationDimensionScores;
+  reasons: string[];
+  caveats: string[];
+  evidenceIds: string[];
+}
+
 export interface RouteLeg {
   id: string;
   fromPlaceId: string;
@@ -165,7 +187,11 @@ export interface DocumentArtifact {
   id: string;
   planId: string;
   planVersion: number;
-  type: "teacher-plan" | "student-worksheet" | "parent-notice";
+  type:
+    | "teacher-plan"
+    | "student-worksheet"
+    | "parent-notice"
+    | "school-application-draft";
   status: "draft" | "final";
   markdown: string;
   generatedAt: string;
@@ -202,6 +228,9 @@ export interface TripPlan {
   dataMode: DataMode;
   constraints: ConstraintSet;
   curriculum: CurriculumReference[];
+  candidatePlaces: PlaceCandidate[];
+  recommendations: PlaceRecommendation[];
+  selectedPlaceIds: string[];
   places: PlaceCandidate[];
   routeLegs: RouteLeg[];
   itinerary: ItineraryStop[];

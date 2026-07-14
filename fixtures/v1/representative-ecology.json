@@ -94,6 +94,94 @@
       "sourceEvidenceId": "evidence-place-wetland"
     }
   ],
+  "candidatePlaces": [
+    {
+      "id": "place-eco-lab",
+      "name": "도시생태학습관(시연용)",
+      "category": "생태교육",
+      "address": "경기도 수원시 생태로 24(가상 주소)",
+      "mapUrl": "fixture://sup-ro/map/place-eco-lab",
+      "latitude": 37.2825,
+      "longitude": 127.0138,
+      "openingHours": { "open": "09:30", "close": "17:00", "verified": true },
+      "visitMinutes": 100,
+      "costPerStudent": 5000,
+      "accessibility": "verified-accessible",
+      "isIndoor": true,
+      "curriculumAlignment": "생태계 구성 요소 분류와 먹이 관계 모형 탐구",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-eco",
+      "locked": true
+    },
+    {
+      "id": "place-wetland",
+      "name": "버드나무습지 관찰원(시연용)",
+      "category": "야외관찰",
+      "address": "경기도 수원시 습지로 15(가상 주소)",
+      "mapUrl": "fixture://sup-ro/map/place-wetland",
+      "latitude": 37.3013,
+      "longitude": 127.0314,
+      "openingHours": { "open": "09:00", "close": "17:30", "verified": true },
+      "visitMinutes": 85,
+      "costPerStudent": 0,
+      "accessibility": "verified-accessible",
+      "isIndoor": false,
+      "curriculumAlignment": "생물·비생물 요소 관찰과 상호작용 증거 기록",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-wetland"
+    },
+    {
+      "id": "place-science-center",
+      "name": "생활과학체험관(시연용)",
+      "category": "과학체험",
+      "address": "경기도 수원시 탐구로 8(가상 주소)",
+      "mapUrl": "fixture://sup-ro/map/place-science-center",
+      "latitude": 37.2705,
+      "longitude": 127.054,
+      "openingHours": { "open": "09:00", "close": "17:00", "verified": true },
+      "visitMinutes": 90,
+      "costPerStudent": 4000,
+      "accessibility": "verified-accessible",
+      "isIndoor": true,
+      "curriculumAlignment": "환경 변화 모형 실험과 관찰 자료 해석",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-science"
+    },
+    {
+      "id": "place-arboretum",
+      "name": "숲생태수목원(시연용)",
+      "category": "식물·숲",
+      "address": "경기도 수원시 숲길 31(가상 주소)",
+      "mapUrl": "fixture://sup-ro/map/place-arboretum",
+      "latitude": 37.316,
+      "longitude": 127.0,
+      "openingHours": { "open": "09:30", "close": "17:00", "verified": true },
+      "visitMinutes": 90,
+      "costPerStudent": 3000,
+      "accessibility": "unverified",
+      "isIndoor": false,
+      "curriculumAlignment": "식생 층위와 미소환경 차이를 비교 관찰",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-arboretum"
+    },
+    {
+      "id": "place-water-center",
+      "name": "물환경교육센터(시연용)",
+      "category": "물환경",
+      "address": "경기도 수원시 물길 12(가상 주소)",
+      "mapUrl": "fixture://sup-ro/map/place-water-center",
+      "latitude": 37.246,
+      "longitude": 127.001,
+      "openingHours": { "open": "10:00", "close": "16:00", "verified": false },
+      "visitMinutes": 80,
+      "costPerStudent": 2000,
+      "accessibility": "verified-accessible",
+      "isIndoor": true,
+      "curriculumAlignment": "수질 지표와 수생 생태계의 관계 자료 분석",
+      "alignmentEvidenceId": "evidence-curriculum",
+      "sourceEvidenceId": "evidence-place-water"
+    }
+  ],
   "routeLegs": [
     {
       "id": "route-school-eco",
@@ -225,6 +313,31 @@
       "retrievedAt": "2026-07-13T09:00:00+09:00",
       "mode": "fixture",
       "status": "confirmed"
+    },
+    {
+      "id": "evidence-place-science",
+      "label": "시연용 생활과학체험관",
+      "provider": "Sup-Ro Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed"
+    },
+    {
+      "id": "evidence-place-arboretum",
+      "label": "시연용 숲생태수목원",
+      "provider": "Sup-Ro Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed"
+    },
+    {
+      "id": "evidence-place-water",
+      "label": "시연용 물환경교육센터",
+      "provider": "Sup-Ro Fixture v1",
+      "retrievedAt": "2026-07-13T09:00:00+09:00",
+      "mode": "fixture",
+      "status": "confirmed",
+      "note": "운영시간은 미확인 상태로 유지"
     },
     {
       "id": "evidence-route",

@@ -33,10 +33,12 @@ declare global {
 export function MapCanvas({
   places,
   selectedPlaceId,
+  selectedPlaceIds = [],
   onSelect,
 }: {
   places: PlaceCandidate[];
   selectedPlaceId?: string;
+  selectedPlaceIds?: string[];
   onSelect: (id: string) => void;
 }) {
   const appKey = process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY;
@@ -98,6 +100,7 @@ export function MapCanvas({
         <AccessiblePlaceList
           places={places}
           selectedPlaceId={selectedPlaceId}
+          selectedPlaceIds={selectedPlaceIds}
           onSelect={onSelect}
         />
       </>
@@ -170,7 +173,7 @@ export function MapCanvas({
           <button
             key={place.id}
             type="button"
-            className={`marker ${selectedPlaceId === place.id ? "selected" : ""}`}
+            className={`marker ${selectedPlaceIds.includes(place.id) ? "planned" : ""} ${selectedPlaceId === place.id ? "selected" : ""}`}
             style={position(place)}
             aria-label={`${place.name} 선택`}
             onClick={() => onSelect(place.id)}
@@ -182,6 +185,7 @@ export function MapCanvas({
       <AccessiblePlaceList
         places={places}
         selectedPlaceId={selectedPlaceId}
+        selectedPlaceIds={selectedPlaceIds}
         onSelect={onSelect}
       />
     </>
@@ -191,10 +195,12 @@ export function MapCanvas({
 function AccessiblePlaceList({
   places,
   selectedPlaceId,
+  selectedPlaceIds,
   onSelect,
 }: {
   places: PlaceCandidate[];
   selectedPlaceId?: string;
+  selectedPlaceIds: string[];
   onSelect: (id: string) => void;
 }) {
   return (
@@ -206,7 +212,9 @@ function AccessiblePlaceList({
           aria-pressed={selectedPlaceId === place.id}
           onClick={() => onSelect(place.id)}
         >
-          {index + 1}. {place.name} — {place.address}
+          {index + 1}. {place.name}
+          {selectedPlaceIds.includes(place.id) ? " · ✓ 일정 선택" : ""} —{" "}
+          {place.address}
         </button>
       ))}
     </div>

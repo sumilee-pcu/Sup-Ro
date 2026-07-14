@@ -16,6 +16,9 @@ describe("반응형 작업공간 렌더", () => {
     expect(html).toContain("교사 승인");
     expect(html).toContain("모바일 계획 단계");
     expect(html).toContain("접근성 근거 기록");
+    expect(html).toContain("추천 후보 비교·선택");
+    expect(html).toContain("학교 신청서 초안");
+    expect(html).toContain("선택한 후보로 일정 다시 만들기");
     expect(html).toContain('for="');
   });
 });

@@ -11,7 +11,12 @@ export async function POST(request: Request) {
   if (
     !body.plan ||
     !(
-      ["teacher-plan", "student-worksheet", "parent-notice"] as string[]
+      [
+        "teacher-plan",
+        "student-worksheet",
+        "parent-notice",
+        "school-application-draft",
+      ] as string[]
     ).includes(body.type)
   )
     return NextResponse.json(

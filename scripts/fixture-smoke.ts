@@ -14,6 +14,7 @@ for (const type of [
   "teacher-plan",
   "student-worksheet",
   "parent-notice",
+  "school-application-draft",
 ] as const) {
   const artifact = renderDocument(
     plan,

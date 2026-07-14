@@ -4,18 +4,36 @@ import {
   calculateCosts,
   validatePlan,
 } from "@/modules/itinerary/engine";
+import {
+  haversineMeters,
+  rankPlaceRecommendations,
+} from "@/modules/recommendations/engine";
 import type { ConstraintSet, PlaceCandidate, TripPlan } from "./types";
 
 export function recalculatePlan(plan: TripPlan): TripPlan {
-  const totals = calculateCosts(plan.costs);
+  const costs = recalculateAdmissionCost(plan);
+  const totals = calculateCosts(costs);
+  const canSchedule =
+    /^\d{2}:\d{2}$/.test(plan.constraints.departureTime) &&
+    /^\d{2}:\d{2}$/.test(plan.constraints.returnTime);
+  const origin = plan.places.find((place) => place.visitMinutes === 0);
   let next: TripPlan = {
     ...plan,
-    itinerary: buildItinerary(plan.places, plan.routeLegs, plan.constraints),
+    costs,
+    itinerary: canSchedule
+      ? buildItinerary(plan.places, plan.routeLegs, plan.constraints)
+      : [],
+    recommendations: rankPlaceRecommendations(
+      plan.candidatePlaces,
+      plan.constraints,
+      origin,
+    ),
     confirmedCostTotal: totals.confirmed,
     projectedCostTotal: totals.projected,
-    activities: buildActivities(plan),
+    activities: [],
     state: "Verify",
   };
+  next = { ...next, activities: buildActivities(next) };
   next = { ...next, findings: validatePlan(next) };
   next.state = next.findings.some((item) => item.blocking)
     ? "NeedsReview"
@@ -23,16 +41,79 @@ export function recalculatePlan(plan: TripPlan): TripPlan {
   return next;
 }
 
+function recalculateAdmissionCost(plan: TripPlan): TripPlan["costs"] {
+  const admission =
+    plan.constraints.participantCount *
+    plan.places.reduce((total, place) => total + place.costPerStudent, 0);
+  return plan.costs.map((item) =>
+    item.id === "cost-admission" ? { ...item, amount: admission } : item,
+  );
+}
+
 export function editPlanConstraints(
   plan: TripPlan,
   patch: Partial<ConstraintSet>,
   now = new Date(),
 ): TripPlan {
+  const constraints = { ...plan.constraints, ...patch };
+  const routeLegs =
+    constraints.transportMode === plan.constraints.transportMode
+      ? plan.routeLegs
+      : rebuildEstimatedRouteLegs(plan.places, [], constraints.transportMode);
   return recalculatePlan({
     ...plan,
     version: plan.version + 1,
     state: "Intake",
-    constraints: { ...plan.constraints, ...patch },
+    constraints,
+    routeLegs,
+    artifacts: [],
+    updatedAt: now.toISOString(),
+  });
+}
+
+export function selectRecommendedPlaces(
+  plan: TripPlan,
+  placeIds: string[],
+  now = new Date(),
+): TripPlan {
+  const selectedIds = [...new Set(placeIds)];
+  if (selectedIds.length < 1 || selectedIds.length > 3)
+    throw new Error("후보 장소를 1곳 이상 3곳 이하로 선택하세요.");
+
+  const missingMandatory = plan.constraints.mandatoryPlaceIds.filter(
+    (placeId) => !selectedIds.includes(placeId),
+  );
+  if (missingMandatory.length > 0)
+    throw new Error("필수 장소는 선택에서 제외할 수 없습니다.");
+
+  const recommendationById = new Map(
+    plan.recommendations.map((item) => [item.placeId, item]),
+  );
+  const selected = selectedIds.map((placeId) => {
+    const place = plan.candidatePlaces.find((item) => item.id === placeId);
+    if (!place) throw new Error("후보 장소를 찾을 수 없습니다.");
+    if (plan.constraints.excludedPlaceIds.includes(placeId))
+      throw new Error(`${place.name}은 제외한 후보입니다.`);
+    if (recommendationById.get(placeId)?.eligibility === "blocked")
+      throw new Error(`${place.name}은 필수 제약을 충족하지 못합니다.`);
+    return place;
+  });
+  const origin = plan.places.find((place) => place.visitMinutes === 0);
+  if (!origin) throw new Error("출발 장소를 찾을 수 없습니다.");
+  const places = [origin, ...selected];
+  const routeLegs = rebuildEstimatedRouteLegs(
+    places,
+    plan.routeLegs,
+    plan.constraints.transportMode,
+  );
+
+  return recalculatePlan({
+    ...plan,
+    version: plan.version + 1,
+    places,
+    routeLegs,
+    selectedPlaceIds: selectedIds,
+    selectedPlaceId: selectedIds[0],
     artifacts: [],
     updatedAt: now.toISOString(),
   });
@@ -44,11 +125,16 @@ export function togglePlaceLock(plan: TripPlan, placeId: string): TripPlan {
     places: plan.places.map((place) =>
       place.id === placeId ? { ...place, locked: !place.locked } : place,
     ),
+    candidatePlaces: plan.candidatePlaces.map((place) =>
+      place.id === placeId ? { ...place, locked: !place.locked } : place,
+    ),
   };
 }
 
 export function excludePlace(plan: TripPlan, placeId: string): TripPlan {
-  const place = plan.places.find((candidate) => candidate.id === placeId);
+  const place =
+    plan.places.find((candidate) => candidate.id === placeId) ??
+    plan.candidatePlaces.find((candidate) => candidate.id === placeId);
   if (!place) throw new Error("장소를 찾을 수 없습니다.");
   if (place.locked || plan.constraints.mandatoryPlaceIds.includes(placeId))
     throw new Error("잠금 또는 필수 장소는 제외할 수 없습니다.");
@@ -63,6 +149,7 @@ export function excludePlace(plan: TripPlan, placeId: string): TripPlan {
     version: plan.version + 1,
     places,
     routeLegs,
+    selectedPlaceIds: plan.selectedPlaceIds.filter((id) => id !== placeId),
     constraints: {
       ...plan.constraints,
       excludedPlaceIds: [
@@ -94,6 +181,9 @@ export function reorderPlace(
     version: plan.version + 1,
     places,
     routeLegs,
+    selectedPlaceIds: places
+      .filter((place) => place.visitMinutes > 0)
+      .map((place) => place.id),
     artifacts: [],
   });
 }
@@ -109,6 +199,9 @@ export function updatePlace(
     places: plan.places.map((place) =>
       place.id === placeId ? { ...place, ...patch } : place,
     ),
+    candidatePlaces: plan.candidatePlaces.map((place) =>
+      place.id === placeId ? { ...place, ...patch } : place,
+    ),
     artifacts: [],
   });
 }
@@ -122,7 +215,9 @@ export function recordAccessibilityEvidence(
 ): TripPlan {
   if (note.trim().length < 3)
     throw new Error("접근성 확인 방법이나 문의 결과를 3자 이상 기록하세요.");
-  const place = plan.places.find((candidate) => candidate.id === placeId);
+  const place =
+    plan.places.find((candidate) => candidate.id === placeId) ??
+    plan.candidatePlaces.find((candidate) => candidate.id === placeId);
   if (!place) throw new Error("장소를 찾을 수 없습니다.");
   const version = plan.version + 1;
   const evidenceId = `evidence-access-user-${placeId}-v${version}`;
@@ -130,6 +225,9 @@ export function recordAccessibilityEvidence(
     ...plan,
     version,
     places: plan.places.map((candidate) =>
+      candidate.id === placeId ? { ...candidate, accessibility } : candidate,
+    ),
+    candidatePlaces: plan.candidatePlaces.map((candidate) =>
       candidate.id === placeId ? { ...candidate, accessibility } : candidate,
     ),
     evidence: [
@@ -197,17 +295,4 @@ function rebuildEstimatedRouteLegs(
       sourceEvidenceId: known?.sourceEvidenceId ?? "evidence-route",
     };
   });
-}
-
-function haversineMeters(from: PlaceCandidate, to: PlaceCandidate): number {
-  const radians = (degrees: number) => (degrees * Math.PI) / 180;
-  const earthRadius = 6_371_000;
-  const latitudeDelta = radians(to.latitude - from.latitude);
-  const longitudeDelta = radians(to.longitude - from.longitude);
-  const a =
-    Math.sin(latitudeDelta / 2) ** 2 +
-    Math.cos(radians(from.latitude)) *
-      Math.cos(radians(to.latitude)) *
-      Math.sin(longitudeDelta / 2) ** 2;
-  return 2 * earthRadius * Math.asin(Math.sqrt(a));
 }

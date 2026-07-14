@@ -17,6 +17,25 @@
 
 실제 키 값, 다른 앱의 식별자, 계정 정보는 Git 추적 문서에 기록하지 않는다. JavaScript 키에는 확정된 HTTPS 운영 도메인만 추가하고 `localhost`는 로컬 개발을 위해 유지한다.
 
+## NAVER Maps 대체 가능성 검토
+
+2026-07-14 공식 문서 기준으로 네이버 API를 별도 공급자 어댑터로 연결할 수 있다. 다만 Kakao 지도·Local·경로를 한 묶음으로 그대로 바꾸는 방식은 아니며, 장소 후보 발견과 대중교통·도보 경로에는 보완 공급자가 필요하다.
+
+| 수업로 기능               | 네이버 공식 API                                                                                                 | 판정           | 구현 메모                                                                                                                                                     |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 웹 지도·마커·폴리라인     | [NAVER Maps JavaScript API v3](https://navermaps.github.io/maps.js.ncp/docs/)                                   | 대체 가능      | 새 Maps 애플리케이션의 `ncpKeyId`와 등록 웹 도메인을 사용한다.                                                                                                |
+| 출발지 주소→좌표          | [Geocoding API](https://api.ncloud-docs.com/docs/ai-naver-mapsgeocoding-geocode)                                | 대체 가능      | 서버에서 Client ID·Secret 헤더로 호출하고 키를 브라우저에 노출하지 않는다.                                                                                    |
+| 자동차·전세버스 참고 경로 | [Directions 5/15](https://api.ncloud-docs.com/docs/en/ai-naver-mapsdirections-driving)                          | 대체 가능      | Directions 5는 경유지 최대 5개, 자동차 경로만 지원한다. 대형차 운행·승하차 가능 여부는 별도 확인한다.                                                         |
+| 위치 주변 장소 후보       | [NAVER Search 지역 API](https://github.com/naver/naver-openapi-guide/blob/master/ko/naver-openapi-swagger.yaml) | 부분 가능      | 공식 계약상 특정 위치 기반 검색을 지원하지 않는다. 지역명을 포함한 검색 후 좌표 거리 필터를 적용하거나 TourAPI·지자체 공공데이터를 주 후보 공급자로 결합한다. |
+| 대중교통·도보 경로        | Maps Directions 5/15                                                                                            | 직접 대체 불가 | 공식 Directions는 자동차 전용이다. 다른 경로 공급자 또는 네이버 지도 앱 연결 URL을 사용하고 자동 계산 여부를 구분한다.                                        |
+| 기상·대기질·안전·접근성   | 별도 공공데이터                                                                                                 | 영향 없음      | 현재와 같이 지도 공급자 밖의 공식 데이터와 교사 확인 기록을 사용한다.                                                                                         |
+
+브라우저 지도에는 공개 식별자인 `NEXT_PUBLIC_NAVER_MAP_KEY_ID`만 전달하고, 서버 REST용 `NAVER_MAP_CLIENT_SECRET`과 별도 네이버 검색 API의 `NAVER_SEARCH_CLIENT_SECRET`은 Vercel 서버 환경변수로만 보관해야 한다. [Maps 공통 인증](https://api.ncloud-docs.com/docs/en/ainaverapi-maps-overview)은 `x-ncp-apigw-api-key-id`와 `x-ncp-apigw-api-key` 헤더를 요구한다.
+
+[NAVER Cloud Maps 사용 가이드](https://guide.ncloud-docs.com/docs/maps-overview)는 종량제를 기본으로 하며 대표 계정에 한해 Web Dynamic Map, Static Map, Geocoding, Reverse Geocoding 무료 이용량을 제공한다고 안내한다. Directions는 이 무료 대상 목록에 포함돼 있지 않으므로 활성화 전 콘솔의 최신 단가·일/월 한도·예산 알림을 확인한다.
+
+현재 코드의 지도·장소·경로 공급자 인터페이스를 유지하고 `SUPRO_MAP_PROVIDER=kakao|naver` 같은 서버 통제 선택값으로 전환할 수 있다. 공개 데모의 기본 공급자를 실제로 네이버로 바꾸는 것은 네이버 클라우드 애플리케이션, 운영 도메인, 과금 한도와 서버 비밀키가 준비된 뒤 별도 배포 게이트에서 수행한다.
+
 ## 현재 무료 쿼터와 초과 단가
 
 공식 [쿼터 문서](https://developers.kakao.com/docs/ko/getting-started/quota)의 2026-07-14 표시값을 기준으로 한다. 쿼터는 앱 단위로 합산되며, 유료 API를 별도로 활성화하지 않은 현재 설정에서는 무료 한도 초과 시 과금 대신 실패를 감지해 fixture로 전환한다.
@@ -68,3 +87,5 @@ Kakao가 공지한 [2026-07-21 신규 지도 API·무료 쿼터 정책](https://
 - [ ] API별 호출 제한·예보 범위·장애 응답 기록
 - [ ] 서버 로그의 키·전체 응답·사용자 위치 최소화 확인
 - [ ] fixture 롤백을 실제로 실행하고 상태 표시 확인
+- [x] NAVER Maps의 지도·지오코딩·자동차 경로 대체 가능성과 장소검색·대중교통 한계 기록
+- [ ] NAVER Maps 애플리케이션·대표 계정·운영 도메인·일/월 과금 한도 확정

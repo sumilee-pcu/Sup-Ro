@@ -109,14 +109,19 @@ async function main(): Promise<void> {
     if (!response)
       throw new Error("60초 안에 로컬 HTTP 서버가 준비되지 않았습니다.");
     const html = await response.text();
-    if (!html.includes("수업로 AI") || !html.includes("FIXTURE v1")) {
+    if (
+      !html.includes("수업로 AI") ||
+      !html.includes("FIXTURE v1") ||
+      !html.includes("추천 후보 비교·선택") ||
+      !html.includes("학교 신청서 초안")
+    ) {
       throw new Error(
-        "HTTP 응답에서 Sup-Ro fixture 화면 표식을 찾지 못했습니다.",
+        "HTTP 응답에서 후보 선택·학교 초안이 포함된 Sup-Ro fixture 화면 표식을 찾지 못했습니다.",
       );
     }
 
     console.log(
-      `SUPRO_HTTP_SMOKE_PASS platform=${process.platform} http=${response.status} fixture=true`,
+      `SUPRO_HTTP_SMOKE_PASS platform=${process.platform} http=${response.status} fixture=true candidates=true schoolDraft=true`,
     );
   } finally {
     await stopProcessTree(child);

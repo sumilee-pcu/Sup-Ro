@@ -15,12 +15,16 @@ import {
   calculateCosts,
   validatePlan,
 } from "@/modules/itinerary/engine";
+import { rankPlaceRecommendations } from "@/modules/recommendations/engine";
 
 const fixedNow = "2026-07-13T09:00:00+09:00";
 
 export function createFixturePlan(): TripPlan {
   const constraints = structuredClone(fixture.constraints) as ConstraintSet;
   const places = structuredClone(fixture.places) as PlaceCandidate[];
+  const candidatePlaces = structuredClone(
+    fixture.candidatePlaces,
+  ) as PlaceCandidate[];
   const routeLegs = structuredClone(fixture.routeLegs) as RouteLeg[];
   const costs = structuredClone(fixture.costs) as CostItem[];
   const totals = calculateCosts(costs);
@@ -32,6 +36,15 @@ export function createFixturePlan(): TripPlan {
     dataMode: "fixture",
     constraints,
     curriculum: structuredClone(fixture.curriculum) as CurriculumReference[],
+    candidatePlaces,
+    recommendations: rankPlaceRecommendations(
+      candidatePlaces,
+      constraints,
+      places[0],
+    ),
+    selectedPlaceIds: places
+      .filter((place) => place.visitMinutes > 0)
+      .map((place) => place.id),
     places,
     routeLegs,
     itinerary: buildItinerary(places, routeLegs, constraints),

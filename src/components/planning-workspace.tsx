@@ -4,6 +4,7 @@ import {
   Children,
   cloneElement,
   isValidElement,
+  useCallback,
   useId,
   useMemo,
   useState,
@@ -19,14 +20,16 @@ import {
   excludePlace,
   recordAccessibilityEvidence,
   reorderPlace,
+  selectRecommendedPlaces,
   togglePlaceLock,
 } from "@/modules/plans/actions";
 import {
   findSensitiveText,
   redactSensitiveText,
 } from "@/modules/plans/privacy";
-import { renderDocument } from "@/modules/documents/render";
+import { renderDocument, toPrintHtml } from "@/modules/documents/render";
 import { evaluatePlan } from "@/modules/evaluation/metrics";
+import { CandidateComparison } from "./candidate-comparison";
 import { MapCanvas } from "./map-canvas";
 
 export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
@@ -46,29 +49,50 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
     [plan, documentType],
   );
   const metrics = useMemo(() => evaluatePlan(plan), [plan]);
-  const selected = plan.places.find(
-    (place) => place.id === plan.selectedPlaceId,
-  );
+  const mapPlaces = useMemo(() => {
+    const origin = plan.places.find((place) => place.visitMinutes === 0);
+    return origin ? [origin, ...plan.candidatePlaces] : plan.candidatePlaces;
+  }, [plan.candidatePlaces, plan.places]);
+  const selected = mapPlaces.find((place) => place.id === plan.selectedPlaceId);
   const sensitive = findSensitiveText(draft.notes);
+  const focusPlace = useCallback(
+    (placeId: string) => {
+      const place = mapPlaces.find((candidate) => candidate.id === placeId);
+      if (place) setAccessibilityStatus(place.accessibility);
+      setAccessibilityNote("장소 공식 문의 또는 현장 확인 결과를 입력하세요.");
+      setPlan((current) =>
+        current.selectedPlaceId === placeId
+          ? current
+          : { ...current, selectedPlaceId: placeId },
+      );
+    },
+    [mapPlaces],
+  );
 
   const updateDraft = <K extends keyof ConstraintSet>(
     key: K,
     value: ConstraintSet[K],
   ) => setDraft((current) => ({ ...current, [key]: value }));
   const applyDraft = () => {
-    const safeDraft = { ...draft, notes: redactSensitiveText(draft.notes) };
-    const next = editPlanConstraints(
-      plan,
-      safeDraft,
-      new Date("2026-07-13T09:05:00+09:00"),
-    );
-    setPlan(next);
-    setDraft(next.constraints);
-    setNotice(
-      next.state === "ReadyForApproval"
-        ? "검증이 완료되어 사람 승인을 기다립니다."
-        : "검토가 필요한 항목이 있습니다.",
-    );
+    try {
+      const safeDraft = { ...draft, notes: redactSensitiveText(draft.notes) };
+      const next = editPlanConstraints(
+        plan,
+        safeDraft,
+        new Date("2026-07-13T09:05:00+09:00"),
+      );
+      setPlan(next);
+      setDraft(next.constraints);
+      setNotice(
+        next.state === "ReadyForApproval"
+          ? "검증이 완료되어 사람 승인을 기다립니다."
+          : "검토가 필요한 항목이 있습니다.",
+      );
+    } catch (error) {
+      setNotice(
+        error instanceof Error ? error.message : "계획을 검증할 수 없습니다.",
+      );
+    }
   };
   const handleApprove = () => {
     try {
@@ -105,6 +129,43 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
     anchor.click();
     URL.revokeObjectURL(url);
   };
+  const printDocument = () => {
+    const popup = window.open("", "_blank");
+    if (!popup) {
+      setNotice("팝업을 허용한 뒤 인쇄/PDF를 다시 눌러주세요.");
+      return;
+    }
+    popup.opener = null;
+    popup.addEventListener(
+      "load",
+      () => {
+        popup.focus();
+        popup.print();
+      },
+      { once: true },
+    );
+    popup.document.open();
+    popup.document.write(toPrintHtml(artifact));
+    popup.document.close();
+  };
+  const applyCandidateSelection = (placeIds: string[]) => {
+    try {
+      const next = selectRecommendedPlaces(
+        plan,
+        placeIds,
+        new Date("2026-07-13T09:07:00+09:00"),
+      );
+      setPlan(next);
+      setDraft(next.constraints);
+      setNotice(
+        `${placeIds.length}개 후보를 반영해 일정·이동·비용을 다시 계산했습니다.`,
+      );
+    } catch (error) {
+      setNotice(
+        error instanceof Error ? error.message : "후보를 선택할 수 없습니다.",
+      );
+    }
+  };
 
   return (
     <main className="app-shell">
@@ -129,7 +190,7 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
         </div>
       </header>
       {notice && (
-        <p role="status" className="sr-only">
+        <p role="status" className="notice-banner">
           {notice}
         </p>
       )}
@@ -258,6 +319,16 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
                   }
                 />
               </Field>
+              <Field label="인솔자 수">
+                <input
+                  type="number"
+                  min="1"
+                  value={draft.adultCount}
+                  onChange={(event) =>
+                    updateDraft("adultCount", Number(event.target.value))
+                  }
+                />
+              </Field>
               <Field label="1인 예산">
                 <input
                   type="number"
@@ -325,6 +396,13 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
               </button>
             </div>
 
+            <CandidateComparison
+              key={plan.version}
+              plan={plan}
+              onApply={applyCandidateSelection}
+              onFocus={focusPlace}
+            />
+
             <h3 className="section-title">
               일정 · 예상 {plan.projectedCostTotal.toLocaleString("ko-KR")}원
             </h3>
@@ -339,9 +417,7 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
                     key={stop.id}
                     className="stop-card"
                     aria-current={plan.selectedPlaceId === place.id}
-                    onClick={() =>
-                      setPlan({ ...plan, selectedPlaceId: place.id })
-                    }
+                    onClick={() => focusPlace(place.id)}
                   >
                     <div className="stop-time">{stop.arrivalTime}</div>
                     <div>
@@ -412,9 +488,10 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
             </p>
           </div>
           <MapCanvas
-            places={plan.places}
+            places={mapPlaces}
             selectedPlaceId={plan.selectedPlaceId}
-            onSelect={(id) => setPlan({ ...plan, selectedPlaceId: id })}
+            selectedPlaceIds={plan.selectedPlaceIds}
+            onSelect={focusPlace}
           />
           {selected && (
             <div className="panel-body">
@@ -570,6 +647,7 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
                     "teacher-plan",
                     "student-worksheet",
                     "parent-notice",
+                    "school-application-draft",
                   ] as const
                 ).map((type) => (
                   <button
@@ -582,7 +660,9 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
                       ? "운영계획서"
                       : type === "student-worksheet"
                         ? "활동지"
-                        : "안내문"}
+                        : type === "parent-notice"
+                          ? "안내문"
+                          : "학교 신청서 초안"}
                   </button>
                 ))}
               </div>
@@ -598,9 +678,9 @@ export function PlanningWorkspace({ initialPlan }: { initialPlan: TripPlan }) {
                 <button
                   type="button"
                   className="secondary-button"
-                  onClick={() => window.print()}
+                  onClick={printDocument}
                 >
-                  인쇄/PDF
+                  인쇄/PDF 열기
                 </button>
               </div>
             </div>
