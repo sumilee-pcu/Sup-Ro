@@ -4,7 +4,11 @@
 
 첫 번째 서비스는 교육과정 성취기준, 학년, 출발지, 시간, 예산, 안전, 접근성 조건을 함께 고려해 체험학습 장소와 일정을 설계하는 AI 체험학습 코디네이터입니다.
 
-현재 저장소는 외부 API 키 없이 완주하는 **fixture-first 로컬 MVP**입니다. 실제 장소·경로·기상 정보로 오인되지 않도록 모든 시연 데이터에 모드, 출처, 조회 시각, 확인 상태를 표시합니다.
+현재 저장소는 외부 API 키 없이 완주하는 **fixture-first 공개 MVP**입니다. 실제 장소·경로·기상 정보로 오인되지 않도록 모든 시연 데이터에 모드, 출처, 조회 시각, 확인 상태를 표시합니다.
+
+**공개 데모:** [https://sup-ro.vercel.app](https://sup-ro.vercel.app)
+
+공개 데모는 Kakao 지도를 표시하지만 계획·장소·경로·기상·안전 데이터는 `FIXTURE v1` 합성 시나리오입니다. 예약·결제·실시간 위치 추적은 수행하지 않습니다.
 
 ## 구현된 흐름
 
@@ -58,7 +62,7 @@ pnpm validate:openspec
 
 `.env.example`을 `.env.local`로 복사할 수 있습니다. 기본 `SUPRO_DATA_MODE=fixture`에서는 키가 전혀 필요하지 않습니다. `NEXT_PUBLIC_` 접두사가 붙은 Kakao JavaScript 키만 브라우저에 포함될 수 있으며 REST·모델 키는 서버 전용입니다.
 
-Kakao localhost 지도·장소 연결은 검증했으며 실제 키는 GitHub에 포함하지 않습니다. 공개 라이선스 선택, 지정 Windows 11 물리 장비 검증, 2026-07-21 경로 API 최종 반영은 후속 게이트입니다. GitHub Actions는 Ubuntu와 Windows Server에서 동일한 품질 게이트를 실행합니다.
+Kakao localhost와 공개 HTTPS 도메인의 지도 표시를 검증했으며 실제 키는 GitHub에 포함하지 않습니다. 배포 환경에는 JavaScript 지도 키와 `SUPRO_DATA_MODE=fixture`만 설정했고, 서버용 REST 키·유료 API·BizWallet은 활성화하지 않았습니다. 공개 라이선스 선택, 지정 Windows 11 물리 장비 검증, 2026-07-21 경로 API 최종 반영은 후속 게이트입니다. GitHub Actions는 Ubuntu와 Windows Server에서 동일한 품질 게이트를 실행합니다.
 
 ## 문서
 

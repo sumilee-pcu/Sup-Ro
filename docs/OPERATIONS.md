@@ -89,6 +89,14 @@ pnpm dev
 
 ## 배포와 되돌리기
 
-현재 단계에서는 배포를 실행하지 않는다. 게시 승인을 받은 뒤에도 먼저 태그된 로컬 커밋에서 빌드하고, 오류 시 직전 검증 커밋으로 애플리케이션을 되돌린 뒤 데이터베이스는 별도 마이그레이션·백업 절차로 처리한다.
+공개 fixture 데모는 2026-07-14 Vercel Hobby 프로젝트 `sup-ro`에 배포했다.
 
-공개 배포 URL이 정해지면 Kakao JavaScript 키에 해당 HTTPS 도메인만 추가한다. 서버가 고정 송신 IP를 제공하면 REST 키의 허용 IP를 그 주소로 제한한다. 배포 환경에는 `.env.local`을 업로드하지 않고 호스팅 서비스의 secret 저장소를 사용한다.
+- 운영 URL: `https://sup-ro.vercel.app`
+- Git 연결: `sumilee-pcu/Sup-Ro`의 `main`
+- 환경변수: `NEXT_PUBLIC_KAKAO_MAP_APP_KEY`, `SUPRO_DATA_MODE=fixture`
+- 데이터 경계: 서버 영속 저장소 없이 요청·응답 기반 fixture 데모만 제공
+- 비활성 범위: REST 키, 라이브 경로·공공데이터, 유료 API, BizWallet
+
+오류 시 Vercel의 직전 성공 배포를 Production으로 승격하거나 검증된 직전 Git 커밋을 재배포한다. 현재 공개 경로에는 영속 데이터베이스가 없으므로 데이터 마이그레이션 롤백은 적용되지 않는다.
+
+Kakao JavaScript 키에는 `https://sup-ro.vercel.app`과 로컬 개발용 `http://localhost:3000`을 등록했다. 서버 REST 키는 배포하지 않았으므로 송신 IP 등록 대상이 아니다. 배포 환경에는 `.env.local` 전체를 업로드하지 않고 필요한 공개 지도 키와 fixture 모드만 Vercel 환경변수로 등록했다.

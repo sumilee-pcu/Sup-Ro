@@ -9,13 +9,13 @@
 | 개발자 앱           | `Sup-Ro`, 소유자 권한, 교육 카테고리                                                          |
 | 지도 제품           | 2026-07-14 `ON`                                                                               |
 | 계정 내 활성화 순서 | 대시보드에서 확인된 3개 기존 앱은 모두 지도 `OFF`; `Sup-Ro`가 첫 번째이자 유일한 지도 활성 앱 |
-| 로컬 웹 도메인      | `http://localhost:3000`만 등록                                                                |
+| JavaScript 도메인   | `http://localhost:3000`, `https://sup-ro.vercel.app` 등록                                     |
 | JavaScript 키       | `Sup-Ro Local Web`; 브라우저용, ignored `.env.local`에만 값 보관                              |
 | REST API 키         | `Sup-Ro Server Local`; 서버 전용, ignored `.env.local`에만 값 보관                            |
-| IP 제한             | 로컬 개발의 동적 IP 때문에 미설정; 고정 배포 서버가 정해지면 허용 IP만 등록                   |
+| IP 제한             | REST 키를 공개 배포에 사용하지 않아 미설정; 라이브 서버 연동 시 고정 송신 IP를 우선 검토      |
 | 결제 설정           | 유료 API·BizWallet 미활성화                                                                   |
 
-실제 키 값, 다른 앱의 식별자, 계정 정보는 Git 추적 문서에 기록하지 않는다. 공개 배포 전에는 확정된 HTTPS 도메인만 JavaScript 키에 추가하고 localhost를 유지할지는 운영 정책으로 결정한다.
+실제 키 값, 다른 앱의 식별자, 계정 정보는 Git 추적 문서에 기록하지 않는다. JavaScript 키에는 확정된 HTTPS 운영 도메인만 추가하고 `localhost`는 로컬 개발을 위해 유지한다.
 
 ## 현재 무료 쿼터와 초과 단가
 
@@ -59,10 +59,10 @@ Kakao가 공지한 [2026-07-21 신규 지도 API·무료 쿼터 정책](https://
 
 ## 활성화 체크리스트
 
-- [x] Kakao 개발자 앱과 로컬 웹 도메인 등록
+- [x] Kakao 개발자 앱과 로컬·공개 HTTPS JavaScript 도메인 등록
 - [x] 활성화 앱 순서·무료 쿼터·초과 단가·유료 기능 비활성 기록
 - [x] 지도 표시와 캐시·파생 데이터의 보수적 구현 경계 기록
-- [ ] 공개 HTTPS 도메인과 고정 서버 IP 등록
+- [x] 공개 HTTPS JavaScript 도메인 등록; REST 키 미배포로 서버 IP 등록은 현재 적용 대상 아님
 - [ ] 2026-07-21 경로 API 최종 명세 재확인
 - [ ] 공공데이터 활용신청과 키 발급
 - [ ] API별 호출 제한·예보 범위·장애 응답 기록

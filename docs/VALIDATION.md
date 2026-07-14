@@ -62,15 +62,18 @@
 
 - 2026-07-14 `Sup-Ro` 개발자 앱을 교육 카테고리로 생성하고 지도 제품을 활성화했다.
 - 대시보드에서 확인된 기존 앱 3개는 지도 기능이 모두 꺼져 있어 `Sup-Ro`가 현재 계정의 첫 번째이자 유일한 지도 활성 앱이다.
-- JavaScript 키에는 `http://localhost:3000`만 등록했고 REST 키에는 로컬 동적 IP 제한을 걸지 않았다. 유료 API와 BizWallet은 활성화하지 않았다.
+- JavaScript 키에는 `http://localhost:3000`과 `https://sup-ro.vercel.app`을 등록했고 REST 키에는 로컬 동적 IP 제한을 걸지 않았다. 유료 API와 BizWallet은 활성화하지 않았다.
 - 실제 키는 Git에서 제외된 `.env.local`에만 저장했고 추적 파일·문서·로그에는 값을 기록하지 않았다.
 - `pnpm dev`는 `.env.local`을 읽어 로컬 HTTP 200을 반환했고, 렌더링 HTML에는 Kakao 지도 컨테이너와 fixture 데이터 모드가 함께 확인됐다.
 - `pnpm smoke:kakao`와 동등한 1회 검증에서 등록 도메인 Referer의 Maps SDK가 HTTP 200·3,898바이트를 반환했고 Local 키워드 검색도 HTTP 200·결과 1건을 반환했다.
-- 이 실행 환경의 브라우저 보안 클라이언트가 localhost 화면 접근을 차단해 실제 지도 타일의 시각 렌더링은 아직 증거로 남기지 못했다. SDK 수신·REST 응답·서버 HTML 계약까지는 확인했다.
+- Vercel Hobby 프로젝트 `sup-ro`의 공개 배포가 성공했고 `https://sup-ro.vercel.app`이 HTTP 화면을 반환했다.
+- 공개 Chrome 화면에서 Kakao 지도 타일·마커·저작권 표시를 확인했다.
+- 공개 서비스에서 계획 재검증이 `ReadyForApproval` v2를 반환했고 교사 승인 후 `Approved`와 문서 `승인본` 전환을 확인했다.
+- 배포 환경에는 JavaScript 지도 키와 `SUPRO_DATA_MODE=fixture`만 등록했으며 REST 키는 배포하지 않았다.
 
 ## 미검증 경계
 
-- 공개 HTTPS 도메인에서의 Kakao 지도 타일 시각 렌더링과 2026-07-21 경로 API 최종 명세
+- 2026-07-21 Kakao 경로 API 최종 명세
 - Kakao 외 공공데이터 실키의 응답, 쿼터, 비용, 등록 도메인
 - 실제 장소 운영시간·가격·접근성·차량 동선
 - Windows 11 물리 장비의 설치·브라우저·성능

@@ -16,7 +16,7 @@
 2. 현재 모든 권리 유보를 유지할지, 별도 오픈소스 라이선스를 적용할지 결정
 3. Windows 11 실기기에서 fixture 데모를 한 번 실행해 결과를 전달
 
-Kakao 앱 생성, localhost 도메인, 지도 활성화, 로컬 키 저장, SDK·Local 실호출 검증은 완료했다. 공개 URL이 생긴 뒤 Kakao 콘솔에 HTTPS 도메인을 추가하는 작업은 배포 단계에서 처리한다. 2026-07-21 경로 API 최종 명세 확인과 코드 반영도 유료 기능을 켜지 않는 범위에서는 에이전트가 계속 진행할 수 있다.
+Kakao 앱 생성, localhost·공개 HTTPS 도메인, 지도 활성화, 로컬 키 저장, SDK·Local 실호출, Vercel 공개 지도 렌더링 검증을 완료했다. 공개 fixture 데모는 `https://sup-ro.vercel.app`에서 제공한다. 2026-07-21 경로 API 최종 명세 확인과 코드 반영도 유료 기능을 켜지 않는 범위에서는 에이전트가 계속 진행할 수 있다.
 
 ## 연결 상태와 게시 명령
 
@@ -36,14 +36,15 @@ git push -u origin main
 
 ## 로컬 전달 상태
 
-- 기준 게시 구현 커밋: `a414664`
+- 배포 기준 구현 커밋: `dfe30c4`
 - 브랜치: `main`
 - staged-tree 사전검사: PASS
 - remote: `origin` → `https://github.com/sumilee-pcu/Sup-Ro.git`
 - 원격 상태: Public, `main` 게시 및 추적 완료
 - 전체 자동 품질 게이트: PASS
 - Kakao Maps SDK·Local API 실호출: PASS, 키는 ignored `.env.local`에만 보관
-- GitHub Actions: Ubuntu·Windows 모두 PASS ([실행 29290164853](https://github.com/sumilee-pcu/Sup-Ro/actions/runs/29290164853))
+- GitHub Actions: Ubuntu·Windows 모두 PASS ([실행 29290303394](https://github.com/sumilee-pcu/Sup-Ro/actions/runs/29290303394))
+- Vercel 공개 데모: [`https://sup-ro.vercel.app`](https://sup-ro.vercel.app), Kakao 지도·계획 재검증·교사 승인 PASS
 - GitHub 계정 귀속 전용 noreply 주소는 소유자가 확인 후 필요할 때 재작성
 
 ## 게시 검증
